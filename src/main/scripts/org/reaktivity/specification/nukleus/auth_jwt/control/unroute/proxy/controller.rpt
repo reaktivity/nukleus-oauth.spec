@@ -1,0 +1,44 @@
+#
+# Copyright 2016-2017 The Reaktivity Project
+#
+# The Reaktivity Project licenses this file to you under the Apache License,
+# version 2.0 (the "License"); you may not use this file except in compliance
+# with the License. You may obtain a copy of the License at:
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+
+property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
+property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
+
+property nukleiUR020101C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
+
+property controlUR020101C ${nukleiUR020101C.control("http-cache")}
+
+connect await ROUTED_PROXY
+        "agrona://stream/bidirectional"
+        option agrona:reader ${agrona:broadcastReceiver(controlUR020101C.controller)}
+        option agrona:writer ${agrona:manyToOneWriter(controlUR020101C.nukleus)}
+
+connected
+
+write [0x00 0x00 0x00 0x02]
+write ${controlUR020101C.nextCorrelationId()}
+write [0x02]
+write [0x06] "source"
+write ${newProxyAcceptRef}
+write [0x06] "target"
+write ${newProxyConnectRef}
+write flush
+
+read [0x40 0x00 0x00 0x02]
+read ${controlUR020101C.correlationId()}
+
+close
+closed
