@@ -16,6 +16,8 @@
 
 property newProxyConnectRef ${nuklei:newReferenceId()} # external scope
 
+property invalidJWT "Bearer eyJhbGciOiJub25lIn0." 
+
 connect await ROUTED_PROXY
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newProxyConnectRef}
@@ -26,6 +28,9 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
+                        ${http:header("authorization", invalidJWT)}
+
+
 connected
 
 write close

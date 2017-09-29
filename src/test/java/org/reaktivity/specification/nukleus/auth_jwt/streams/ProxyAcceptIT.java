@@ -42,10 +42,46 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
+        "${streams}/request.with.invalid.jwt.forwarded/accept/client",
+        "${streams}/request.with.invalid.jwt.forwarded/accept/server",
+        })
+    public void shouldForwardRequestWithInvalidJwtOnUnsecuredRoute() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/request.with.unsecured.jwt.forwarded/accept/client",
+        "${streams}/request.with.unsecured.jwt.forwarded/accept/server",
+        })
+    public void shouldForwardRequestWithUnsecuredJwtOnUnsecuredRoute() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/request.without.authorization.forwarded/accept/client",
         "${streams}/request.without.authorization.forwarded/accept/server",
         })
     public void shouldForwardRequestWithoutAuthorizationOnUnsecuredRoute() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/request.without.bearer.forwarded/accept/client",
+        "${streams}/request.without.bearer.forwarded/accept/server",
+        })
+    public void shouldForwardRequestWithoutBearerOnUnsecuredRoute() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
