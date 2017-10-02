@@ -52,6 +52,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.kaazing</groupId>
+      <artifactId>k3po.lang</artifactId>
+      <version>${k3po.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.reaktivity</groupId>
       <artifactId>nukleus-http.spec</artifactId>
       <version>${nukleus.http.spec.version}</version>
@@ -72,12 +77,6 @@
     <dependency>
       <groupId>org.kaazing</groupId>
       <artifactId>k3po.junit</artifactId>
-      <version>${k3po.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kaazing</groupId>
-      <artifactId>k3po.lang</artifactId>
       <version>${k3po.version}</version>
       <scope>test</scope>
     </dependency>
