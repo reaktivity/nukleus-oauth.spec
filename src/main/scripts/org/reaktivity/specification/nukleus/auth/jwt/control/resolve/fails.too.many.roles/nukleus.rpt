@@ -1,0 +1,86 @@
+#
+# Copyright 2016-2017 The Reaktivity Project
+#
+# The Reaktivity Project licenses this file to you under the Apache License,
+# version 2.0 (the "License"); you may not use this file except in compliance
+# with the License. You may obtain a copy of the License at:
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+
+property nukleiR05N ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
+
+property controlR05N ${nukleiR05N.controlNew("security")}
+
+connect "agrona://stream/bidirectional"
+        option agrona:reader ${agrona:manyToOneReader(controlR05N.nukleus)}
+        option agrona:writer ${agrona:broadcastTransmitter(controlR05N.controller)}
+
+connected
+
+read 0x00000003
+read (long:correlationIdR05N)
+read [0x05] "realm"
+read [0x05] "role1"
+read [0x05] "role2"
+read [0x05] "role3"
+read [0x05] "role4"
+read [0x05] "role5"
+read [0x05] "role6"
+read [0x05] "role7"
+read [0x05] "role8"
+read [0x05] "role9"
+read [0x05] "role10"
+read [0x05] "role11"
+read [0x05] "role12"
+read [0x05] "role13"
+read [0x05] "role14"
+read [0x05] "role15"
+read [0x05] "role16"
+read [0x05] "role17"
+read [0x05] "role18"
+read [0x05] "role19"
+read [0x05] "role20"
+read [0x05] "role21"
+read [0x05] "role22"
+read [0x05] "role23"
+read [0x05] "role24"
+read [0x05] "role25"
+read [0x05] "role26"
+read [0x05] "role27"
+read [0x05] "role28"
+read [0x05] "role29"
+read [0x05] "role30"
+read [0x05] "role31"
+read [0x05] "role32"
+read [0x05] "role33"
+read [0x05] "role34"
+read [0x05] "role35"
+read [0x05] "role36"
+read [0x05] "role37"
+read [0x05] "role38"
+read [0x05] "role39"
+read [0x05] "role40"
+read [0x05] "role41"
+read [0x05] "role42"
+read [0x05] "role43"
+read [0x05] "role44"
+read [0x05] "role45"
+read [0x05] "role46"
+read [0x05] "role47"
+read [0x05] "role48"
+read [0x05] "role49TooMany"
+
+
+write 0x40000000
+write ${correlationIdR05N}
+write flush
+
+close
+closed

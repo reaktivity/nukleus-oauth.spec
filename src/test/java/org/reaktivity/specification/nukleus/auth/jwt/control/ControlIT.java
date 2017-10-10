@@ -47,6 +47,92 @@ public class ControlIT
 
     @Test
     @Specification({
+        "resolve/fails.too.many.roles/nukleus",
+        "resolve/fails.too.many.roles/controller"
+    })
+    public void shouldNotResolveTooManyRoles() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "resolve/multiple.realms/nukleus",
+        "resolve/multiple.realms/controller"
+    })
+    public void shouldResolveMultipleRealms() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "resolve/one.realm/nukleus",
+        "resolve/one.realm/controller"
+    })
+    public void shouldResolveOneRealm() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "resolve/with.roles/nukleus",
+        "resolve/with.roles/controller"
+    })
+    public void shouldResolveWithRoles() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "unresolve/fails.unknown.realm.or.role/nukleus",
+        "unresolve/fails.unknown.realm.or.role/controller"
+    })
+    public void shouldNotUnresolveUnknownRealmOrRoles() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "resolve/multiple.realms/nukleus",
+        "resolve/multiple.realms/controller",
+        "unresolve/multiple.realms/nukleus",
+        "unresolve/multiple.realms/controller"
+    })
+    public void shouldUnresolveMultipleRealms() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "resolve/one.realm/nukleus",
+        "resolve/one.realm/controller",
+        "unresolve/one.realm/nukleus",
+        "unresolve/one.realm/controller"
+    })
+    public void shouldUnresolveOneRealm() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "resolve/with.roles/nukleus",
+        "resolve/with.roles/controller",
+        "unresolve/with.roles/nukleus",
+        "unresolve/with.roles/controller"
+    })
+    public void shouldUnresolveWithRoles() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "route/proxy/nukleus",
         "route/proxy/controller",
         "unroute/proxy/nukleus",
@@ -56,4 +142,5 @@ public class ControlIT
     {
         k3po.finish();
     }
+
 }
