@@ -35,6 +35,6 @@ read closed
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
-write "hello world"
+write "unsecure content"
 
 write close

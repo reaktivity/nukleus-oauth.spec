@@ -30,9 +30,7 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
 connected
 
 write close
-read nukleus:begin.ext ${http:header(":status", "200")}
-                       ${http:header("content-length", "11")}
-
-read "hello world"
+read nukleus:begin.ext ${http:header(":status", "401")}
+                       ${http:header("WWW-Authenticate", "Bearer realm=\"example\"")}
 
 read closed

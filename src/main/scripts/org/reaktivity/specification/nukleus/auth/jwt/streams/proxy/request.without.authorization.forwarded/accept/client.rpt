@@ -33,6 +33,6 @@ write close
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
 
-read "hello world"
+read "unsecure content"
 
 read closed

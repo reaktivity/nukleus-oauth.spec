@@ -14,7 +14,7 @@
 # under the License.
 #
 
-property newProxyConnectRef ${nuklei:newReferenceId()} # external scope
+property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
 
 accept await ROUTED_PROXY
         "nukleus://target/streams/http-cache"
@@ -32,9 +32,7 @@ connected
 
 read closed
 
-write nukleus:begin.ext ${http:header(":status", "200")}
-                        ${http:header("content-length", "11")}
-
-write "hello world"
+write nukleus:begin.ext ${http:header(":status", "401")}
+                        ${http:header("WWW-Authenticate", "Bearer realm=\"example\"")}
 
 write close

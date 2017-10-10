@@ -43,7 +43,7 @@ public class ProxyAcceptIT
     @Test
     @Specification({
         "${streams}/request.with.invalid.jwt.forwarded/accept/client",
-        "${streams}/request.with.invalid.jwt.forwarded/accept/server",
+        "${streams}/request.with.invalid.jwt.forwarded/accept/server"
         })
     public void shouldForwardRequestWithInvalidJwtOnUnsecuredRoute() throws Exception
     {
@@ -55,7 +55,7 @@ public class ProxyAcceptIT
     @Test
     @Specification({
         "${streams}/request.with.invalid.jwt.no.route/accept/client",
-        "${streams}/request.with.invalid.jwt.no.route/accept/server",
+        "${streams}/request.with.invalid.jwt.no.route/accept/server"
         })
     public void shouldRejectRequestWithInvalidJwt() throws Exception
     {
@@ -66,10 +66,10 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
-        "${streams}/request.with.valid.jwt.alg.none.forwarded/accept/client",
-        "${streams}/request.with.valid.jwt.alg.none.forwarded/accept/server",
+        "${streams}/request.with.signed.jwt.ec256.forwarded/accept/client",
+        "${streams}/request.with.signed.jwt.ec256.forwarded/accept/server"
         })
-    public void shouldForwardRequestWithValidJwtAlgNone() throws Exception
+    public void shouldForwardRequestWithValidJwtEC256() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -78,10 +78,34 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
-        "${streams}/request.with.valid.jwt.alg.none.no.route/accept/client",
-        "${streams}/request.with.valid.jwt.alg.none.no.route/accept/server",
+        "${streams}/request.with.signed.jwt.rs256.forwarded/accept/client",
+        "${streams}/request.with.signed.jwt.rs256.forwarded/accept/server"
         })
-    public void shouldRejectRequestWithValidJwtAlgNoneWhenAlgRequired() throws Exception
+    public void shouldForwardRequestWithValidJwtRS256() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/request.with.unsigned.jwt.forwarded/accept/client",
+        "${streams}/request.with.unsigned.jwt.forwarded/accept/server"
+        })
+    public void shouldForwardRequestWithUnsignedJwtOnUnsecuredRoute() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/request.with.unsigned.jwt.no.route/accept/client",
+        "${streams}/request.with.unsigned.jwt.no.route/accept/server"
+        })
+    public void shouldRejectRequestWithUnsignedJwt() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -91,7 +115,7 @@ public class ProxyAcceptIT
     @Test
     @Specification({
         "${streams}/request.without.authorization.forwarded/accept/client",
-        "${streams}/request.without.authorization.forwarded/accept/server",
+        "${streams}/request.without.authorization.forwarded/accept/server"
         })
     public void shouldForwardRequestWithoutAuthorizationOnUnsecuredRoute() throws Exception
     {
@@ -103,7 +127,7 @@ public class ProxyAcceptIT
     @Test
     @Specification({
         "${streams}/request.without.authorization.no.route/accept/client",
-        "${streams}/request.without.authorization.no.route/accept/server",
+        "${streams}/request.without.authorization.no.route/accept/server"
         })
     public void shouldRejectRequestWithoutAuthorization() throws Exception
     {
@@ -115,7 +139,7 @@ public class ProxyAcceptIT
     @Test
     @Specification({
         "${streams}/request.without.bearer.forwarded/accept/client",
-        "${streams}/request.without.bearer.forwarded/accept/server",
+        "${streams}/request.without.bearer.forwarded/accept/server"
         })
     public void shouldForwardRequestWithoutBearerOnUnsecuredRoute() throws Exception
     {
@@ -127,7 +151,7 @@ public class ProxyAcceptIT
     @Test
     @Specification({
         "${streams}/request.without.bearer.no.route/accept/client",
-        "${streams}/request.without.bearer.no.route/accept/server",
+        "${streams}/request.without.bearer.no.route/accept/server"
         })
     public void shouldRejectRequestWithoutBearer() throws Exception
     {

@@ -14,14 +14,15 @@
 # under the License.
 #
 
-property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
+property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
 
-# From https://tools.ietf.org/html/rfc7519#section-6.1 (alg=none):
-property validJWT "Bearer eyJhbGciOiJub25lIn0.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ." 
+# From https://tools.ietf.org/html/rfc7515#appendix-A.2 (alg=RS356):
+property validJWT "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.cC4hiUPoj9Eetdgtv3hF80EGrhuB__dzERat0XF9g2VtQgr9PJbu3XOiZj5RZmh7AAuHIm4Bh-0Qc_lF5YKt_O8W2Fp5jujGbds9uJdbF9CUAr7t1dnZcAcQjbKBYNX4BAynRFdiuB--f_nZLgrnbyTyWzO75vRK5h6xBArLIARNPvkSjtQBMHlb1L07Qe7K0GarZRmB_eSN9383LcOLn6_dO--xi12jzDwusC-eOkHWEsqtFZESc6BfI7noOPqvhJ1phCnvWh6IeYI2w9QOYEUipUTI8np6LbgGY9Fs98rqVt5AXLIhWkWywlVmtVrBp0igcN_IoypGlUPQGe77Rw" 
 
 connect await ROUTED_PROXY
-        "nukleus://auth-jwt/streams/source"
-        option nukleus:route ${newProxyAcceptRef}
+        "nukleus://target/streams/http-cache"
+        option nukleus:route ${newProxyConnectRef}
+        option nukleus:authorization 0x0001000000000000L
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 
@@ -30,12 +31,15 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
                         ${http:header("authorization", validJWT)}
+
+
 connected
 
 write close
+
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
-
 read "hello world"
 
 read closed
+

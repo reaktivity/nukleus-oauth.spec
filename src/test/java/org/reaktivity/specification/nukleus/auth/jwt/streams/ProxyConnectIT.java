@@ -43,7 +43,7 @@ public class ProxyConnectIT
     @Test
     @Specification({
         "${streams}/request.with.invalid.jwt.forwarded/connect/client",
-        "${streams}/request.with.invalid.jwt.forwarded/connect/server",
+        "${streams}/request.with.invalid.jwt.forwarded/connect/server"
         })
     public void shouldForwardRequestWithInvalidJwtOnUnsecuredRoute() throws Exception
     {
@@ -54,10 +54,34 @@ public class ProxyConnectIT
 
     @Test
     @Specification({
-        "${streams}/request.with.valid.jwt.alg.none.forwarded/accept/client",
-        "${streams}/request.with.valid.jwt.alg.none.forwarded/accept/server",
+        "${streams}/request.with.signed.jwt.ec256.forwarded/connect/client",
+        "${streams}/request.with.signed.jwt.ec256.forwarded/connect/server"
         })
-    public void shouldForwardRequestWithValidJwtAlgNone() throws Exception
+    public void shouldForwardRequestWithValidJwtEC256() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/request.with.signed.jwt.rs256.forwarded/connect/client",
+        "${streams}/request.with.signed.jwt.rs256.forwarded/connect/server"
+        })
+    public void shouldForwardRequestWithValidJwtRS256() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/request.with.unsigned.jwt.forwarded/connect/client",
+        "${streams}/request.with.unsigned.jwt.forwarded/connect/server"
+        })
+    public void shouldForwardRequestWithUnsignedJwtOnUnsecuredRoute() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -67,7 +91,7 @@ public class ProxyConnectIT
     @Test
     @Specification({
         "${streams}/request.without.authorization.forwarded/connect/client",
-        "${streams}/request.without.authorization.forwarded/connect/server",
+        "${streams}/request.without.authorization.forwarded/connect/server"
         })
     public void shouldForwardRequestWithoutAuthorizationOnUnsecuredRoute() throws Exception
     {
@@ -79,7 +103,7 @@ public class ProxyConnectIT
     @Test
     @Specification({
         "${streams}/request.without.bearer.forwarded/connect/client",
-        "${streams}/request.without.bearer.forwarded/connect/server",
+        "${streams}/request.without.bearer.forwarded/connect/server"
         })
     public void shouldForwardRequestWithoutBearerOnUnsecuredRoute() throws Exception
     {

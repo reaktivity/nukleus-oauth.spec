@@ -40,16 +40,6 @@ public class ControlIT
         "route/proxy/nukleus",
         "route/proxy/controller"
     })
-    public void shouldRouteProxyNoAlgorithms() throws Exception
-    {
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "route.ext/proxy/nukleus",
-        "route.ext/proxy/controller"
-    })
     public void shouldRouteProxy() throws Exception
     {
         k3po.finish();

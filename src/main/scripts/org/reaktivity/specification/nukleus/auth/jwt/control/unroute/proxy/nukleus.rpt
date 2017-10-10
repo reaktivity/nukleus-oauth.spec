@@ -25,15 +25,15 @@ connect await ROUTED_PROXY
 
 connected
 
-read [0x00 0x00 0x00 0x02]
-read ([0..8]:correlationIdUR020101N)
+read 0x00000002
+read (long:correlationIdUR020101N)
 read [0x02]
 read [0x06] "source"
-read ([0..8]:proxyAcceptRefUR020101N)
+read (long:proxyAcceptRefUR020101N)
 read [0x06] "target"
-read ([0..8]:proxyConnectRefRG010101N)
+read (long:proxyConnectRefRG010101N)
 
-write [0x40 0x00 0x00 0x02]
+write 0x40000002
 write ${correlationIdUR020101N}
 write flush
 

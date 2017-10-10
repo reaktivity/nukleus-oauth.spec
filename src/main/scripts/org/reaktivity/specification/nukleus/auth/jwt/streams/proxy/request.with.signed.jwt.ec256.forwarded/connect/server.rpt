@@ -16,24 +16,28 @@
 
 property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
 
-connect await ROUTED_PROXY
+property expectedAuthorization 0x0001000000000000L
+
+accept await ROUTED_PROXY
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newProxyConnectRef}
+        option nukleus:authorization ${expectedAuthorization}
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
+accepted
 
-write nukleus:begin.ext ${http:header(":scheme", "http")}
-                        ${http:header(":method", "GET")}
-                        ${http:header(":path", "/path")}
-                        ${http:header(":authority", "localhost:8080")}
-                        ${http:header("authorization", "no bearer")}
-
-
+read nukleus:begin.ext ${http:header(":scheme", "http")}
+                       ${http:header(":method", "GET")}
+                       ${http:header(":path", "/path")}
+                       ${http:header(":authority", "localhost:8080")}
+                       ${http:header("authorization", validJWT)}
 connected
 
-write close
-
-read nukleus:begin.ext ${http:header(":status", "401")}
-                       ${http:header("WWW-Authenticate", "Bearer realm=\"example\"")}
 read closed
 
+write nukleus:begin.ext ${http:header(":status", "200")}
+                        ${http:header("content-length", "11")}
+
+write "hello world"
+
+write close
