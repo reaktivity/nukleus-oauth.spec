@@ -16,7 +16,7 @@
 
 property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
 
-property validJWT ${jwt:validSignedJwtRS256()}
+property validJWT ${jwt:validSignedJwtES256()} 
 
 connect await ROUTED_PROXY
         "nukleus://target/streams/http-cache"

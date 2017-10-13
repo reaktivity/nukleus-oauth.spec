@@ -14,14 +14,13 @@
 # under the License.
 #
 
-property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
+property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
 
-property validJWT ${jwt:validSignedJwtRS256()}
+property unreadyJWT ${jwt:unreadySignedJwtES256()} 
 
 connect await ROUTED_PROXY
-        "nukleus://target/streams/http-cache"
-        option nukleus:route ${newProxyConnectRef}
-        option nukleus:authorization 0x0001000000000000L
+        "nukleus://auth-jwt/streams/source"
+        option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 
@@ -29,16 +28,11 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
-                        ${http:header("authorization", validJWT)}
-
-
+                        ${http:header("authorization", unreadyJWT)}
 connected
 
 write close
-
-read nukleus:begin.ext ${http:header(":status", "200")}
-                       ${http:header("content-length", "11")}
-read "hello world"
+read nukleus:begin.ext ${http:header(":status", "401")}
+                       ${http:header("WWW-Authenticate", "Bearer realm=\"example\"")}
 
 read closed
-

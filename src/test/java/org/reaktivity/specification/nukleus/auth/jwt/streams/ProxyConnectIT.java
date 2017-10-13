@@ -42,6 +42,18 @@ public class ProxyConnectIT
 
     @Test
     @Specification({
+        "${streams}/request.with.expired.jwt.forwarded/connect/client",
+        "${streams}/request.with.expired.jwt.forwarded/connect/server"
+        })
+    public void shouldForwardRequestWithExpiredJwtOnUnsecuredRoute() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/request.with.invalid.jwt.forwarded/connect/client",
         "${streams}/request.with.invalid.jwt.forwarded/connect/server"
         })
@@ -54,8 +66,8 @@ public class ProxyConnectIT
 
     @Test
     @Specification({
-        "${streams}/request.with.signed.jwt.ec256.forwarded/connect/client",
-        "${streams}/request.with.signed.jwt.ec256.forwarded/connect/server"
+        "${streams}/request.with.signed.jwt.es256.forwarded/connect/client",
+        "${streams}/request.with.signed.jwt.es256.forwarded/connect/server"
         })
     public void shouldForwardRequestWithValidJwtEC256() throws Exception
     {
@@ -70,6 +82,18 @@ public class ProxyConnectIT
         "${streams}/request.with.signed.jwt.rs256.forwarded/connect/server"
         })
     public void shouldForwardRequestWithValidJwtRS256() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/request.with.unready.jwt.forwarded/connect/client",
+        "${streams}/request.with.unready.jwt.forwarded/connect/server"
+        })
+    public void shouldForwardRequestWithUnreadyJwtOnUnsecuredRoute() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");

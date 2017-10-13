@@ -139,7 +139,7 @@
           </includes>
           <excludes>
             <exclude>src/conf/**</exclude>
-            <exclude>src/test/resources/*.jwk</exclude>
+            <exclude>src/main/resources/keys/*.jwk</exclude>
           </excludes>
           <mapping>
             <idl>SLASHSTAR_STYLE</idl>

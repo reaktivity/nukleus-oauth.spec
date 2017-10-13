@@ -42,6 +42,30 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
+        "${streams}/request.with.expired.jwt.forwarded/accept/client",
+        "${streams}/request.with.expired.jwt.forwarded/accept/server"
+        })
+    public void shouldForwardRequestWithExpiredJwtOnUnsecuredRoute() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/request.with.expired.jwt.no.route/accept/client",
+        "${streams}/request.with.expired.jwt.no.route/accept/server"
+        })
+    public void shouldRejectRequestWithExpiredJwt() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/request.with.invalid.jwt.forwarded/accept/client",
         "${streams}/request.with.invalid.jwt.forwarded/accept/server"
         })
@@ -66,8 +90,8 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
-        "${streams}/request.with.signed.jwt.ec256.forwarded/accept/client",
-        "${streams}/request.with.signed.jwt.ec256.forwarded/accept/server"
+        "${streams}/request.with.signed.jwt.es256.forwarded/accept/client",
+        "${streams}/request.with.signed.jwt.es256.forwarded/accept/server"
         })
     public void shouldForwardRequestWithValidJwtEC256() throws Exception
     {
@@ -82,6 +106,30 @@ public class ProxyAcceptIT
         "${streams}/request.with.signed.jwt.rs256.forwarded/accept/server"
         })
     public void shouldForwardRequestWithValidJwtRS256() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/request.with.unready.jwt.forwarded/accept/client",
+        "${streams}/request.with.unready.jwt.forwarded/accept/server"
+        })
+    public void shouldForwardRequestWithUnreadyJwtOnUnsecuredRoute() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/request.with.unready.jwt.no.route/accept/client",
+        "${streams}/request.with.unready.jwt.no.route/accept/server"
+        })
+    public void shouldRejectRequestWithUnreadyJwt() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");

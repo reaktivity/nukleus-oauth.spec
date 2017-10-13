@@ -16,13 +16,11 @@
 
 property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
 
-# From https://tools.ietf.org/html/rfc7515#appendix-A.3 (alg=EC356):
-property validJWT "eyJhbGciOiJFUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.DtEhU3ljbEg8L38VWAfUAqOyKAM6-Xx-F4GawxaepmXFCgfTjDxw5djxLa8ISlSApmWQxfKTUJqPP3-Kg6NU1Q" 
+property unreadyJWT ${jwt:unreadySignedJwtES256()} 
 
 connect await ROUTED_PROXY
-        "nukleus://target/streams/http-cache"
+        "nukleus://target/streams/auth-jwt"
         option nukleus:route ${newProxyConnectRef}
-        option nukleus:authorization 0x0001000000000000L
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 
@@ -30,16 +28,13 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
-                        ${http:header("authorization", validJWT)}
-
-
+                        ${http:header("authorization", unreadyJWT)}
 connected
 
 write close
 
-read nukleus:begin.ext ${http:header(":status", "200")}
-                       ${http:header("content-length", "11")}
-read "hello world"
+read nukleus:begin.ext ${http:header(":status", "401")}
+                       ${http:header("WWW-Authenticate", "Bearer realm=\"example\"")}
 
 read closed
 
