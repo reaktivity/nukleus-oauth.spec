@@ -14,25 +14,23 @@
 # under the License.
 #
 
-property nukleiUR06C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
+property nukleiUR06N ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
-property controlUR06C ${nukleiUR06C.control("security")}
-
-property authorization 0x0001_ffff0000ffffL # contains unrecognized role bits
+property controlUR06N ${nukleiUR06N.controlNew("auth-jwt")}
 
 connect "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:broadcastReceiver(controlUR06C.controller)}
-        option agrona:writer ${agrona:manyToOneWriter(controlUR06C.nukleus)}
+        option agrona:reader ${agrona:manyToOneReader(controlUR06N.nukleus)}
+        option agrona:writer ${agrona:broadcastTransmitter(controlUR06N.controller)}
 
 connected
 
-write 0x00000004
-write ${controlUR06C.nextCorrelationId()}
-write ${authorization}
-write flush
+read 0x00000004
+read (long:correlationIdUR06N)
+read [0..8] # authorization containing unrecognized role bits
 
-read 0x40000000
-read ${controlUR06C.correlationId()}
+write 0x40000000
+write ${correlationIdUR06N}
+write flush
 
 close
 closed

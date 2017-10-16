@@ -16,7 +16,7 @@
 
 property nukleiUR020101N ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
-property controlUR020101N ${nukleiUR020101N.controlNew("http-cache")}
+property controlUR020101N ${nukleiUR020101N.controlNew("auth-jwt")}
 
 connect await ROUTED_PROXY
         "agrona://stream/bidirectional"
@@ -32,6 +32,7 @@ read [0x06] "source"
 read (long:proxyAcceptRefUR020101N)
 read [0x06] "target"
 read (long:proxyConnectRefRG010101N)
+read [0..8] # authorization
 
 write 0x40000002
 write ${correlationIdUR020101N}

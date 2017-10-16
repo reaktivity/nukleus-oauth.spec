@@ -16,7 +16,7 @@
 
 property nukleiRG010101N ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
-property controlRG010101N ${nukleiRG010101N.controlNew("http-cache")}
+property controlRG010101N ${nukleiRG010101N.controlNew("auth-jwt")}
 
 connect "agrona://stream/bidirectional"
         option agrona:reader ${agrona:manyToOneReader(controlRG010101N.nukleus)}

@@ -37,16 +37,6 @@ public class ControlIT
 
     @Test
     @Specification({
-        "route/proxy/nukleus",
-        "route/proxy/controller"
-    })
-    public void shouldRouteProxy() throws Exception
-    {
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
         "resolve/fails.too.many.roles/nukleus",
         "resolve/fails.too.many.roles/controller"
     })
@@ -87,10 +77,30 @@ public class ControlIT
 
     @Test
     @Specification({
-        "unresolve/fails.unknown.realm.or.role/nukleus",
-        "unresolve/fails.unknown.realm.or.role/controller"
+        "route/proxy/nukleus",
+        "route/proxy/controller"
     })
-    public void shouldNotUnresolveUnknownRealmOrRoles() throws Exception
+    public void shouldRouteProxy() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "unresolve/fails.unknown.realm/nukleus",
+        "unresolve/fails.unknown.realm/controller"
+    })
+    public void shouldNotUnresolveUnknownRealm() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "unresolve/fails.unknown.role/nukleus",
+        "unresolve/fails.unknown.role/controller"
+    })
+    public void shouldNotUnresolveUnknownRoles() throws Exception
     {
         k3po.finish();
     }

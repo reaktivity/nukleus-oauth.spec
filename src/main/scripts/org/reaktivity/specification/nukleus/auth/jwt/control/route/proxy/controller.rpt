@@ -18,7 +18,7 @@ property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
 
 property nukleiRG010101C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
-property controlRG010101C ${nukleiRG010101C.control("http-cache")}
+property controlRG010101C ${nukleiRG010101C.control("auth-jwt")}
 
 property authorization 0x0000_000000000000L # external
 

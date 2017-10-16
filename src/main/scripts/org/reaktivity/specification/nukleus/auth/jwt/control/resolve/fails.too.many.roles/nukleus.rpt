@@ -16,7 +16,7 @@
 
 property nukleiR05N ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
 
-property controlR05N ${nukleiR05N.controlNew("security")}
+property controlR05N ${nukleiR05N.controlNew("auth-jwt")}
 
 connect "agrona://stream/bidirectional"
         option agrona:reader ${agrona:manyToOneReader(controlR05N.nukleus)}

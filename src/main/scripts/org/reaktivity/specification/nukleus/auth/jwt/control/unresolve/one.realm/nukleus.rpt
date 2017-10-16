@@ -16,7 +16,7 @@
 
 property nukleiUR06N ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
-property controlUR06N ${nukleiUR06N.controlNew("security")}
+property controlUR06N ${nukleiUR06N.controlNew("auth-jwt")}
 
 connect await RESOLVED 
         "agrona://stream/bidirectional"
