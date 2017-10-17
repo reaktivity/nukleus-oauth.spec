@@ -16,6 +16,7 @@
 package org.reaktivity.specification.nukleus.auth.jwt.internal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -50,6 +51,36 @@ public final class FunctionsTest
     {
         byte expected = (byte) 0x80;
         assertTrue(expected == Functions.length8(generateString(256)));
+    }
+
+    @Test
+    public void shouldSupplyExpiredSignedJwtES256()
+    {
+        assertNotNull(Functions.expiredSignedJwtES256());
+    }
+
+    @Test
+    public void shouldSupplyUnreadySignedJwtES256()
+    {
+        assertNotNull(Functions.unreadySignedJwtES256());
+    }
+
+    @Test
+    public void shouldSupplyValidSignedJwtES256()
+    {
+        assertNotNull(Functions.validSignedJwtES256());
+    }
+
+    @Test
+    public void shouldSupplyValidSignedJwtRS256()
+    {
+        assertNotNull(Functions.validSignedJwtRS256());
+    }
+
+    @Test
+    public void shouldSupplyMapper()
+    {
+        assertEquals("jwt", new Functions.Mapper().getPrefixName());
     }
 
     public static class Mapper extends FunctionMapperSpi.Reflective
