@@ -26,7 +26,7 @@ connect "agrona://stream/bidirectional"
 
 connected
 
-write 0x00000004
+write 0x00000012
 write ${controlUR06C.nextCorrelationId()}
 write ${authorization}
 write flush

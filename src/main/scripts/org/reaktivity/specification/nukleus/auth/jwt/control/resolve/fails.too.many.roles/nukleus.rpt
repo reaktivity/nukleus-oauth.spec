@@ -24,7 +24,7 @@ connect "agrona://stream/bidirectional"
 
 connected
 
-read 0x00000003
+read 0x00000011
 read (long:correlationIdR05N)
 read [0x05] "realm"
 read [0x05] "role1"

@@ -24,7 +24,7 @@ connect "agrona://stream/bidirectional"
 
 connected
 
-write 0x00000003
+write 0x00000011
 write ${controlR05C.nextCorrelationId()}
 write [0x05] "realm"
 write [0x05] "role1"

@@ -25,19 +25,19 @@ connect await RESOLVED
 
 connected
 
-read 0x00000004
+read 0x00000012
 read (long:correlationIdUR061N)
 read [0..8] # authorization1
 
-write 0x40000004
+write 0x40000012
 write ${correlationIdUR061N}
 write flush
 
-read 0x00000004
+read 0x00000012
 read (long:correlationIdUR062N)
 read [0..8] # authorization2
 
-write 0x40000004
+write 0x40000012
 write ${correlationIdUR062N}
 write flush
 

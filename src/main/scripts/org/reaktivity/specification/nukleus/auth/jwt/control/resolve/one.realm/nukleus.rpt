@@ -26,11 +26,11 @@ connect "agrona://stream/bidirectional"
 
 connected
 
-read 0x00000003
+read 0x00000011
 read (long:correlationIdR05N)
-read [0x05] "key1"
+read [0x04] "key1"
 
-write 0x40000003
+write 0x40000011
 write ${correlationIdR05N}
 write ${authorization}
 write flush

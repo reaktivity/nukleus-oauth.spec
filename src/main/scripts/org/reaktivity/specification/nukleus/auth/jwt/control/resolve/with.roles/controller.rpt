@@ -26,14 +26,14 @@ connect "agrona://stream/bidirectional"
 
 connected
 
-write 0x00000003
+write 0x00000011
 write ${controlR05C.nextCorrelationId()}
-write [0x05] "key1"
+write [0x04] "key1"
 write [0x05] "role1"
 write [0x05] "role2"
 write flush
 
-read 0x40000003
+read 0x40000011
 read ${controlR05C.correlationId()}
 read ${authorization}
 

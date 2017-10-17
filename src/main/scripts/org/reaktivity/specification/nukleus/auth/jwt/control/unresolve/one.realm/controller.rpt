@@ -27,12 +27,12 @@ connect await RESOLVED
 
 connected
 
-write 0x00000004
+write 0x00000012
 write ${controlUR06C.nextCorrelationId()}
 write ${authorization}
 write flush
 
-read 0x40000004
+read 0x40000012
 read ${controlUR06C.correlationId()}
 
 close

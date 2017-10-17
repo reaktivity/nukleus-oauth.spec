@@ -27,11 +27,11 @@ connect await RESOLVED
 
 connected
 
-read 0x00000004
+read 0x00000012
 read (long:correlationIdUR06N)
 read ${authorization}
 
-write 0x40000004
+write 0x40000012
 write ${correlationIdUR06N}
 write flush
 
