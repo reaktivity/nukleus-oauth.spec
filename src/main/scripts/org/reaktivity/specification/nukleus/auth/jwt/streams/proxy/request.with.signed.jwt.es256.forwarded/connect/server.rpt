@@ -19,7 +19,7 @@ property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
 property expectedAuthorization 0x0001000000000000L
 
 accept await ROUTED_PROXY
-        "nukleus://target/streams/http-cache"
+        "nukleus://target/streams/auth-jwt"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:authorization ${expectedAuthorization}
         option nukleus:window 8192

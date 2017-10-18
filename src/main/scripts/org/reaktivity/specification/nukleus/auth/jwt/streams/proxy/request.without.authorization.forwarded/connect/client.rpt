@@ -17,7 +17,7 @@
 property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
 
 connect await ROUTED_PROXY
-        "nukleus://target/streams/http-cache"
+        "nukleus://target/streams/auth-jwt"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"

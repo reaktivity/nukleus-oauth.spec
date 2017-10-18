@@ -20,7 +20,7 @@ property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
 property validJWT "Bearer eyJhbGciOiJub25lIn0.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ." 
 
 connect await ROUTED_PROXY
-        "nukleus://target/streams/http-cache"
+        "nukleus://target/streams/auth-jwt"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
