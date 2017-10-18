@@ -42,6 +42,30 @@ public class ProxyConnectIT
 
     @Test
     @Specification({
+        "${streams}/proxy.accept.reply.is.reset/connect/client",
+        "${streams}/proxy.accept.reply.is.reset/connect/server"
+        })
+    public void shouldResetClientReplyWhenAcceptReplyIsReset() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/proxy.connect.is.reset/accept/client",
+        "${streams}/proxy.connect.is.reset/accept/server"
+        })
+    public void shouldResetAcceptWhenConnectIsReset() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/request.with.expired.jwt.forwarded/connect/client",
         "${streams}/request.with.expired.jwt.forwarded/connect/server"
         })
