@@ -16,7 +16,7 @@
 
 property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
 
-property expiredJWT ${jwt:expiredSignedJwtES256()} 
+property expiredJWT ${jwt:append("Bearer ", jwt:expiredSignedJwtES256())}
 
 connect await ROUTED_PROXY
         "nukleus://auth-jwt/streams/source"

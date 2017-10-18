@@ -26,11 +26,11 @@ public final class Functions
 {
 
     /* The following are JWS compact serializations of a JSON Web Token with
-    ** headers {"kid":"key1","alg":"RS256"} and payload {"iss":"test issuer"}
+    ** headers {"kid":"key2","alg":"RS256"} and payload {"iss":"test issuer"}
     ** signed using the keys given in RFC 7515 appendices A.2 and A.3.
     */
     private static final String VALID_RS256_SIGNED_JWT =
-           "eyJraWQiOiJrZXkxIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiJqd3QgdGVzdCJ9." +
+           "eyJraWQiOiJrZXkyIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJ0ZXN0IGlzc3VlciJ9." +
            "JYrWm0k-_u04FwVM_eY5NjpSYvYPi2AtQ5GY0nfOl2glXUSbMYc47t2GpOvMb59gmwSf7YaFn2LNVKdFGrIf8j" +
            "ElotgXhGHLAj2-Hww_AILjlj7Brwkw_tv4nvsx6oIHxHt5Md5z00SUrJPJHl5WIKk8KibQ8IHb_RU1G_pwhUHq" +
            "Itm-Ayt91IY-f4FBZc4yCVb9PXS7TPv9IwwJPkW14pZs9qjypejhTFc1okCm5tz9T0mPRNt_BoqBQJvTP571lR" +
