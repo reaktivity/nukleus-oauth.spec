@@ -42,6 +42,18 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
+        "${streams}/proxy.accept.aborts/accept/client",
+        "${streams}/proxy.accept.aborts/accept/server"
+        })
+    public void shouldAbortClientConnectWhenAcceptAborts() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/proxy.accept.reply.is.reset/accept/client",
         "${streams}/proxy.accept.reply.is.reset/accept/server"
         })
@@ -58,6 +70,30 @@ public class ProxyAcceptIT
         "${streams}/proxy.connect.is.reset/accept/server"
         })
     public void shouldResetAcceptWhenConnectIsReset() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/proxy.connect.reply.aborts/accept/client",
+        "${streams}/proxy.connect.reply.aborts/accept/server"
+        })
+    public void shouldAbortAcceptReplyWhenConnectReplyAborts() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/request.and.response.with.fragmented.data/accept/client",
+        "${streams}/request.and.response.with.fragmented.data/accept/server"
+        })
+    public void shouldPropagateWindows() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");

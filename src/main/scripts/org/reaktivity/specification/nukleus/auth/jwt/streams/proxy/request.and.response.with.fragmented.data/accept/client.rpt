@@ -19,17 +19,19 @@ property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
 connect await ROUTED_PROXY
         "nukleus://auth-jwt/streams/source"
         option nukleus:route ${newProxyAcceptRef}
-        option nukleus:window 8192
+        option nukleus:window 10
         option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
-                        ${http:header(":method", "GET")}
+                        ${http:header(":method", "POST")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
+                        ${http:header("content-length", "12")}
 connected
+write "request data"
 write close
 
 read nukleus:begin.ext ${http:header(":status", "200")}
-                       ${http:header("content-length", "11")}                      
-read "hello world"
-read abort
+                       ${http:header("content-length", "16")}
+read "unsecure content"
+read closed

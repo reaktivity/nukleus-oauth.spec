@@ -20,16 +20,11 @@ connect await ROUTED_PROXY
         "nukleus://auth-jwt/streams/source"
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
-        option nukleus:transmission "half-duplex"
+        option nukleus:transmission "simplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
 connected
-write close
-
-read nukleus:begin.ext ${http:header(":status", "200")}
-                       ${http:header("content-length", "11")}                      
-read "hello world"
-read abort
+write abort

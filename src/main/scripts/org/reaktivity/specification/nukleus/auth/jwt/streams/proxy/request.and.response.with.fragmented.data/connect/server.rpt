@@ -14,23 +14,25 @@
 # under the License.
 #
 
-property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
+property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
 
 accept await ROUTED_PROXY
-        "nukleus://auth-jwt/streams/source"
-        option nukleus:route ${newProxyAcceptRef}
-        option nukleus:window 8192
+        "nukleus://target/streams/auth-jwt"
+        option nukleus:route ${newProxyConnectRef}
+        option nukleus:window 8
         option nukleus:transmission "half-duplex"
 accepted
 
 read nukleus:begin.ext ${http:header(":scheme", "http")}
-                       ${http:header(":method", "GET")}
+                       ${http:header(":method", "POST")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
+                       ${http:header("content-length", "12")}
 connected
+read "request data"
 read closed
 
 write nukleus:begin.ext ${http:header(":status", "200")}
-                        ${http:header("content-length", "11")}
-write "hello world"
-write aborted
+                        ${http:header("content-length", "16")}
+write "unsecure content"
+write close
