@@ -14,7 +14,7 @@
 # under the License.
 #
 
-property nukleiR05C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
+property nukleiR05C ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
 
 property controlR05C ${nukleiR05C.control("auth-jwt")}
 

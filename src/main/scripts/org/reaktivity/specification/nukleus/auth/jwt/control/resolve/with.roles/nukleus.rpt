@@ -14,11 +14,11 @@
 # under the License.
 #
 
-property nukleiR05N ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
+property nukleiR05N ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
 
 property controlR05N ${nukleiR05N.controlNew("auth-jwt")}
 
-property authorization 0x0001_000000000000cL
+property authorization 0x0001_00000000000cL
 
 connect "agrona://stream/bidirectional"
         option agrona:reader ${agrona:manyToOneReader(controlR05N.nukleus)}

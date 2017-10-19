@@ -14,18 +14,18 @@
 # under the License.
 #
 
-property nukleiR05C ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
+property nukleiV05C ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
 
-property controlR05C ${nukleiR05C.control("auth-jwt")}
+property controlV05C ${nukleiV05C.control("auth-jwt")}
 
 connect "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:broadcastReceiver(controlR05C.controller)}
-        option agrona:writer ${agrona:manyToOneWriter(controlR05C.nukleus)}
+        option agrona:reader ${agrona:broadcastReceiver(controlV05C.controller)}
+        option agrona:writer ${agrona:manyToOneWriter(controlV05C.nukleus)}
 
 connected
 
 write 0x00000011
-write ${controlR05C.nextCorrelationId()}
+write ${controlV05C.nextCorrelationId()}
 write [0x05] "realm"
 write [0x05] "role1"
 write [0x05] "role2"
@@ -80,7 +80,7 @@ write [0x0d] "role49TooMany"
 write flush
 
 read 0x40000000
-read ${controlR05C.correlationId()}
+read ${controlV05C.correlationId()}
 
 read notify RESOLVED
 
