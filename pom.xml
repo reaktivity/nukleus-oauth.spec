@@ -50,7 +50,6 @@
     <k3po.nukleus.ext.version>0.15</k3po.nukleus.ext.version>
 
     <nukleus.plugin.version>0.13</nukleus.plugin.version>
-    <nukleus.spec.version>develop-SNAPSHOT</nukleus.spec.version>
     <nukleus.http.spec.version>develop-SNAPSHOT</nukleus.http.spec.version>
   </properties>
 
@@ -59,11 +58,6 @@
       <groupId>org.reaktivity</groupId>
       <artifactId>nukleus-http.spec</artifactId>
       <version>${nukleus.http.spec.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.reaktivity</groupId>
-      <artifactId>nukleus.spec</artifactId>
-      <version>${nukleus.spec.version}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
