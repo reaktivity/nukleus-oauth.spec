@@ -24,15 +24,19 @@ connect await ROUTED_PROXY
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 
-write nukleus:begin.ext ${http:header(":scheme", "http")}
-                        ${http:header(":method", "GET")}
-                        ${http:header(":path", "/path")}
-                        ${http:header(":authority", "localhost:8080")}
-                        ${http:header("authorization", expiredJWT)}
+write nukleus:begin.ext ${http:headers()
+                              .item(":scheme", "http")
+                              .item(":method", "GET")
+                              .item(":path", "/path")
+                              .item(":authority", "localhost:8080")
+                              .item("authorization", "expiredJWT")
+                              .build()}
 connected
 
 write close
-read nukleus:begin.ext ${http:header(":status", "401")}
-                       ${http:header("WWW-Authenticate", "Bearer realm=\"example\"")}
+read nukleus:begin.ext ${http:headers()
+                             .item(":status", "401")
+                             .item("WWW-Authenticate", "Bearer realm=\"example\"")
+                             .build()}
 
 read closed
