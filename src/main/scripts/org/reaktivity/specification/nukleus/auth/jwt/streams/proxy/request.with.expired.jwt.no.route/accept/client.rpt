@@ -29,7 +29,7 @@ write nukleus:begin.ext ${http:headers()
                               .item(":method", "GET")
                               .item(":path", "/path")
                               .item(":authority", "localhost:8080")
-                              .item("authorization", "expiredJWT")
+                              .item("authorization", expiredJWT)
                               .build()}
 connected
 

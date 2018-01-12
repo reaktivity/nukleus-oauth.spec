@@ -43,10 +43,10 @@
     <checkstyle.config.location>src/conf/checkstyle/configuration.xml</checkstyle.config.location>
     <checkstyle.suppressions.location>src/conf/checkstyle/suppressions.xml</checkstyle.suppressions.location>
     <jacoco.coverage.ratio>0.00</jacoco.coverage.ratio>
-    <jacoco.missed.count>82</jacoco.missed.count>
+    <jacoco.missed.count>94</jacoco.missed.count>
 
     <junit.version>4.12</junit.version>
-    <k3po.version>3.0.0-alpha-84</k3po.version>
+    <k3po.version>develop-SNAPSHOT</k3po.version>
     <k3po.nukleus.ext.version>develop-SNAPSHOT</k3po.nukleus.ext.version>
 
     <nukleus.plugin.version>develop-SNAPSHOT</nukleus.plugin.version>
