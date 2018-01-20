@@ -29,6 +29,7 @@ connected
 read 0x00000011
 read (long:correlationIdR05N)
 read [0x04] "key1"
+read 0
 
 write 0x40000011
 write ${correlationIdR05N}
