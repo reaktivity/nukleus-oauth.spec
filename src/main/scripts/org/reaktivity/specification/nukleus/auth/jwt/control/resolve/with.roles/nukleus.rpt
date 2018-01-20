@@ -29,6 +29,7 @@ connected
 read 0x00000011
 read (long:correlationIdR05N)
 read [0x04] "key1"
+read 12
 read [0x05] "role1"
 read [0x05] "role2"
 
