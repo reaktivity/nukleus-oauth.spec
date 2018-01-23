@@ -29,6 +29,7 @@ connected
 write 0x00000011
 write ${controlR05C.nextCorrelationId()}
 write [0x04] "key1"
+write 0
 write flush
 
 read 0x40000011
