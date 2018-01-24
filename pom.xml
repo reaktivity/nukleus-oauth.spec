@@ -50,7 +50,7 @@
     <k3po.nukleus.ext.version>0.18</k3po.nukleus.ext.version>
 
     <nukleus.plugin.version>0.25</nukleus.plugin.version>
-    <nukleus.http.spec.version>develop-SNAPSHOT</nukleus.http.spec.version>
+    <nukleus.http.spec.version>0.45</nukleus.http.spec.version>
   </properties>
 
   <dependencies>
