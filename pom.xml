@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.reaktivity</groupId>
   <artifactId>nukleus-auth-jwt.spec</artifactId>
-  <version>0.5</version>
+  <version>0.6</version>
   <name>JWT Auth Nukleus Specification</name>
   <description>JWT Auth Nukleus Specification</description>
   <url>https://github.com/reaktivity/nukleus-auth-jwt.spec</url>
@@ -42,15 +42,15 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <checkstyle.config.location>src/conf/checkstyle/configuration.xml</checkstyle.config.location>
     <checkstyle.suppressions.location>src/conf/checkstyle/suppressions.xml</checkstyle.suppressions.location>
-    <jacoco.coverage.ratio>0.00</jacoco.coverage.ratio>
-    <jacoco.missed.count>94</jacoco.missed.count>
+    <jacoco.coverage.ratio>0.95</jacoco.coverage.ratio>
+    <jacoco.missed.count>0</jacoco.missed.count>
 
     <junit.version>4.12</junit.version>
     <k3po.version>3.0.0-alpha-88</k3po.version>
-    <k3po.nukleus.ext.version>0.17</k3po.nukleus.ext.version>
+    <k3po.nukleus.ext.version>0.18</k3po.nukleus.ext.version>
 
-    <nukleus.plugin.version>0.24</nukleus.plugin.version>
-    <nukleus.http.spec.version>0.44</nukleus.http.spec.version>
+    <nukleus.plugin.version>0.25</nukleus.plugin.version>
+    <nukleus.http.spec.version>0.45</nukleus.http.spec.version>
   </properties>
 
   <dependencies>
@@ -99,7 +99,6 @@
         <executions>
           <execution>
             <goals>
-              <goal>generate</goal>
               <goal>validate</goal>
             </goals>
           </execution>
