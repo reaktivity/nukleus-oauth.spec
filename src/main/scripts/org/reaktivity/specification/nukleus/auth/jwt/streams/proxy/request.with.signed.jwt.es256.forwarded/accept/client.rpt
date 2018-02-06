@@ -21,7 +21,6 @@ property validJWT ${jwt:append("Bearer ", jwt:validSignedJwtES256())}
 connect await ROUTED_PROXY
         "nukleus://auth-jwt/streams/source"
         option nukleus:route ${newProxyAcceptRef}
-        option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:headers()

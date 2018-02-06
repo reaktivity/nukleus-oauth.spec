@@ -22,7 +22,6 @@ connect await ROUTED_PROXY
         "nukleus://target/streams/auth-jwt"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:authorization 0x0001000000000000L
-        option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:headers()

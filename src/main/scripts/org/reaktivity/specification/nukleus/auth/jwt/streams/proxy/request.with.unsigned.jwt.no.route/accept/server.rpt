@@ -19,7 +19,6 @@ property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
 accept await ROUTED_PROXY
         "nukleus://auth-jwt/streams/source"
         option nukleus:route ${newProxyAcceptRef}
-        option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 accepted
 

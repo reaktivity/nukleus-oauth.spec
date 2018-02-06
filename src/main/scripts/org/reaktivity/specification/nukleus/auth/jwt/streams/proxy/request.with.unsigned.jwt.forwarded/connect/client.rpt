@@ -22,7 +22,6 @@ property validJWT "Bearer eyJhbGciOiJub25lIn0.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMD
 connect await ROUTED_PROXY
         "nukleus://target/streams/auth-jwt"
         option nukleus:route ${newProxyConnectRef}
-        option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:headers()

@@ -19,7 +19,6 @@ property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
 accept await ROUTED_PROXY
         "nukleus://target/streams/auth-jwt"
         option nukleus:route ${newProxyConnectRef}
-        option nukleus:window 8192
         option nukleus:transmission "simplex"
 accepted
 
