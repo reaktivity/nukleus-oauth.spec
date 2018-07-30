@@ -36,6 +36,7 @@ read [0..8] # authorization
 write 0x40000001
 write ${correlationIdRG010101N}
 write ${nukleus:newRouteRef()}
+write ${proxyConnectRefRG010101N}
 write flush
 
 close

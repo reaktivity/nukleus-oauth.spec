@@ -41,6 +41,7 @@ write flush
 read 0x40000001
 read ${controlRG010101C.correlationId()}
 read (long:newProxyAcceptRef)
+read ${newProxyConnectRef}
 
 read notify ROUTED_PROXY
 
