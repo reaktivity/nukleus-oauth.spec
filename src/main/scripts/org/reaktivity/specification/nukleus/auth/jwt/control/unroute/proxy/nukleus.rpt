@@ -27,12 +27,8 @@ connected
 
 read 0x00000002
 read (long:correlationIdUR020101N)
-read [0x02]
-read [0x06] "source"
-read (long:proxyAcceptRefUR020101N)
-read [0x06] "target"
-read (long:proxyConnectRefRG010101N)
-read [0..8] # authorization
+read ${core:string("auth-jwt")}
+read [0..8] # routeId
 
 write 0x40000002
 write ${correlationIdUR020101N}

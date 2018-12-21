@@ -28,6 +28,7 @@ connected
 
 write 0x00000011
 write ${controlR05C.nextCorrelationId()}
+write ${core:string("auth-jwt")}
 write [0x04] "key1"
 write 12
 write [0x05] "role1"

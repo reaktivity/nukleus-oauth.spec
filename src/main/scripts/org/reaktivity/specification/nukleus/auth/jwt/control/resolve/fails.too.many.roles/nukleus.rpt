@@ -26,6 +26,7 @@ connected
 
 read 0x00000011
 read (long:correlationIdV05N)
+read ${core:string("auth-jwt")}
 read [0x05] "realm"
 read 341
 read [0x05] "role1"

@@ -14,14 +14,11 @@
 # under the License.
 #
 
-property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
-
 # From https://tools.ietf.org/html/rfc7519#section-6.1 (alg=none):
 property validJWT "Bearer eyJhbGciOiJub25lIn0.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ." 
 
 connect await ROUTED_PROXY
-        "nukleus://auth-jwt/streams/source"
-        option nukleus:route ${newProxyAcceptRef}
+        "nukleus://streams/auth-jwt#0"
         option nukleus:window 8192
         option nukleus:transmission "simplex"
 

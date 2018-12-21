@@ -14,33 +14,26 @@
 # under the License.
 #
 
-property newProxyAcceptRef ${nukleus:newRouteRef()}
-property newProxyConnectRef ${nukleus:newRouteRef()}
+property newProxyRouteId ${nukleus:newProxyRouteId("auth-jwt#1", "target#0")} # external
 
-property nukleiUR0202C ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
+property nukleiUR020101C ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
 
-property controlUR0202C ${nukleiUR0202C.control("auth-jwt")}
-
-property authorization 0x0000_000000000000L # external
+property controlUR020101C ${nukleiUR020101C.control("auth-jwt")}
 
 connect "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:broadcastReceiver(controlUR0202C.controller)}
-        option agrona:writer ${agrona:manyToOneWriter(controlUR0202C.nukleus)}
+        option agrona:reader ${agrona:broadcastReceiver(controlUR020101C.controller)}
+        option agrona:writer ${agrona:manyToOneWriter(controlUR020101C.nukleus)}
 
 connected
 
 write 0x00000002
-write ${controlUR0202C.nextCorrelationId()}
-write [0x02]
-write [0x06] "source"
-write ${newProxyAcceptRef}
-write [0x06] "target"
-write ${newProxyConnectRef}
-write ${authorization}
+write ${controlUR020101C.nextCorrelationId()}
+write ${core:string("auth-jwt")}
+write ${newProxyRouteId}
 write flush
 
 read 0x40000000
-read ${controlUR0202C.correlationId()}
+read ${controlUR020101C.correlationId()}
 
 close
 closed

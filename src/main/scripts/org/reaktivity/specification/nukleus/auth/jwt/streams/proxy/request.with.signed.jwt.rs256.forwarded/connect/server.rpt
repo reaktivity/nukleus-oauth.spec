@@ -14,13 +14,10 @@
 # under the License.
 #
 
-property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
-
 property expectedAuthorization 0x0001000000000000L
 
 accept await ROUTED_PROXY
-        "nukleus://target/streams/auth-jwt"
-        option nukleus:route ${newProxyConnectRef}
+        "nukleus://streams/target#0"
         option nukleus:authorization ${expectedAuthorization}
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
