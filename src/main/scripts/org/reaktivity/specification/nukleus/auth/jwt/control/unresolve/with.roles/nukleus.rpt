@@ -29,6 +29,7 @@ connected
 
 read 0x00000012
 read (long:correlationIdUR06N)
+read ${core:string("auth-jwt")}
 read ${authorization}
 
 write 0x40000012

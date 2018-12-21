@@ -14,27 +14,23 @@
 # under the License.
 #
 
-property nukleiUR0202N ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
+property nukleiUR020101N ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
 
-property controlUR0202N ${nukleiUR0202N.controlNew("auth-jwt")}
+property controlUR020101N ${nukleiUR020101N.controlNew("auth-jwt")}
 
 connect "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:manyToOneReader(controlUR0202N.nukleus)}
-        option agrona:writer ${agrona:broadcastTransmitter(controlUR0202N.controller)}
+        option agrona:reader ${agrona:manyToOneReader(controlUR020101N.nukleus)}
+        option agrona:writer ${agrona:broadcastTransmitter(controlUR020101N.controller)}
 
 connected
 
 read 0x00000002
-read (long:correlationIdUR0202N)
-read [0x02]
-read [0x06] "source"
-read (long:proxyAcceptRefUR0202N)
-read [0x06] "target"
-read (long:proxyConnectRefRG0102N)
-read [0..8] # authorization
+read (long:correlationIdUR020101N)
+read ${core:string("auth-jwt")}
+read [0..8] # routeId
 
 write 0x40000000
-write ${correlationIdUR0202N}
+write ${correlationIdUR020101N}
 write flush
 
 close

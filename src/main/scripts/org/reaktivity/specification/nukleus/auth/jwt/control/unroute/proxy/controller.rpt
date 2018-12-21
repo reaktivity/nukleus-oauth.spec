@@ -14,14 +14,11 @@
 # under the License.
 #
 
-property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
-property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
+property newProxyRouteId ${nukleus:newProxyRouteId("auth-jwt#0", "target#0")} # external
 
 property nukleiUR020101C ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
 
 property controlUR020101C ${nukleiUR020101C.control("auth-jwt")}
-
-property authorization 0x0000_000000000000L # external
 
 connect await ROUTED_PROXY
         "agrona://stream/bidirectional"
@@ -32,12 +29,8 @@ connected
 
 write 0x00000002
 write ${controlUR020101C.nextCorrelationId()}
-write [0x02]
-write [0x06] "source"
-write ${newProxyAcceptRef}
-write [0x06] "target"
-write ${newProxyConnectRef}
-write ${authorization}
+write ${core:string("auth-jwt")}
+write ${newProxyRouteId}
 write flush
 
 read 0x40000002

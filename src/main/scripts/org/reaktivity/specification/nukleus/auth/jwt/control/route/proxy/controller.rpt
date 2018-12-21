@@ -14,8 +14,6 @@
 # under the License.
 #
 
-property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
-
 property nukleiRG010101C ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
 
 property controlRG010101C ${nukleiRG010101C.control("auth-jwt")}
@@ -30,18 +28,16 @@ connected
 
 write 0x00000001
 write ${controlRG010101C.nextCorrelationId()}
+write ${core:string("auth-jwt")}
 write [0x02]
-write [0x06] "source"
-write 0L
-write [0x06] "target"
-write ${newProxyConnectRef}
 write ${authorization}
+write ${core:string("auth-jwt#0")}
+write ${core:string("target#0")}
 write flush
 
 read 0x40000001
 read ${controlRG010101C.correlationId()}
-read (long:newProxyAcceptRef)
-read ${newProxyConnectRef}
+read (long:newProxyRouteId)
 
 read notify ROUTED_PROXY
 

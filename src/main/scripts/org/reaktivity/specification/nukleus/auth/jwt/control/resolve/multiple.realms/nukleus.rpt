@@ -29,6 +29,7 @@ connected
 
 read 0x00000011
 read (long:correlationIdR051N)
+read ${core:string("auth-jwt")}
 read [0x04] "key1"
 read 0
 
@@ -39,6 +40,7 @@ write flush
 
 read 0x00000011
 read (long:correlationIdR052N)
+read ${core:string("auth-jwt")}
 read [0x04] "key2"
 read 0
 

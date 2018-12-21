@@ -14,13 +14,10 @@
 # under the License.
 #
 
-property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
-
 property expiredJWT ${jwt:append("Bearer ", jwt:expiredSignedJwtES256())}
 
 connect await ROUTED_PROXY
-        "nukleus://target/streams/auth-jwt"
-        option nukleus:route ${newProxyConnectRef}
+        "nukleus://streams/target#0"
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 

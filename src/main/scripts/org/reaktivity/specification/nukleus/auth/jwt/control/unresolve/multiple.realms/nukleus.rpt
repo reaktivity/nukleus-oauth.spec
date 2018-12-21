@@ -27,6 +27,7 @@ connected
 
 read 0x00000012
 read (long:correlationIdUR061N)
+read ${core:string("auth-jwt")}
 read [0..8] # authorization1
 
 write 0x40000012
@@ -35,6 +36,7 @@ write flush
 
 read 0x00000012
 read (long:correlationIdUR062N)
+read ${core:string("auth-jwt")}
 read [0..8] # authorization2
 
 write 0x40000012
