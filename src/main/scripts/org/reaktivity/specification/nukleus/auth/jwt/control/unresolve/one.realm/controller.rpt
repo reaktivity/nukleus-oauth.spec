@@ -16,7 +16,7 @@
 
 property nukleiUR06C ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
 
-property controlUR06C ${nukleiUR06C.control("auth-jwt")}
+property controlUR06C ${nukleiUR06C.control()}
 
 property authorization 0x0001_000000000000L
 

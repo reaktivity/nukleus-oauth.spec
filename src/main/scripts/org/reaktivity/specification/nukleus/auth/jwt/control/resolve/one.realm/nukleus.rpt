@@ -16,7 +16,7 @@
 
 property nukleiR05N ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
 
-property controlR05N ${nukleiR05N.controlNew("auth-jwt")}
+property controlR05N ${nukleiR05N.controlNew()}
 
 property authorization 0x0001_000000000000L # security realm only
 
