@@ -46,14 +46,20 @@
     <jacoco.missed.count>0</jacoco.missed.count>
 
     <junit.version>4.12</junit.version>
-    <k3po.version>3.0.0-alpha-97</k3po.version>
-    <k3po.nukleus.ext.version>0.39</k3po.nukleus.ext.version>
+    <k3po.version>3.0.0-alpha-100</k3po.version>
+    <k3po.nukleus.ext.version>0.41</k3po.nukleus.ext.version>
 
     <nukleus.plugin.version>0.33</nukleus.plugin.version>
-    <nukleus.http.spec.version>0.70</nukleus.http.spec.version>
+    <nukleus.http.spec.version>0.71</nukleus.http.spec.version>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.kaazing</groupId>
+      <artifactId>k3po.lang</artifactId>
+      <version>${k3po.version}</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.reaktivity</groupId>
       <artifactId>nukleus-http.spec</artifactId>
@@ -70,11 +76,6 @@
       <artifactId>k3po.junit</artifactId>
       <version>${k3po.version}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kaazing</groupId>
-      <artifactId>k3po.lang</artifactId>
-      <version>${k3po.version}</version>
     </dependency>
   </dependencies>
 
