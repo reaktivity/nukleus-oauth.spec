@@ -5,11 +5,11 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.reaktivity</groupId>
-  <artifactId>nukleus-auth-jwt.spec</artifactId>
+  <artifactId>nukleus-oauth.spec</artifactId>
   <version>develop-SNAPSHOT</version>
-  <name>JWT Auth Nukleus Specification</name>
-  <description>JWT Auth Nukleus Specification</description>
-  <url>https://github.com/reaktivity/nukleus-auth-jwt.spec</url>
+  <name>OAuth Nukleus Specification</name>
+  <description>OAuth Nukleus Specification</description>
+  <url>https://github.com/reaktivity/nukleus-oauth.spec</url>
 
   <licenses>
     <license>
@@ -30,9 +30,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:https://github.com/reaktivity/nukleus-auth-jwt.spec</connection>
-    <developerConnection>scm:git:https://github.com/reaktivity/nukleus-auth-jwt.spec</developerConnection>
-    <url>https://github.com/reaktivity/nukleus-auth-jwt.spec</url>
+    <connection>scm:git:https://github.com/reaktivity/nukleus-oauth.spec</connection>
+    <developerConnection>scm:git:https://github.com/reaktivity/nukleus-oauth.spec</developerConnection>
+    <url>https://github.com/reaktivity/nukleus-oauth.spec</url>
   </scm>
 
   <properties>
@@ -59,6 +59,11 @@
       <artifactId>k3po.lang</artifactId>
       <version>${k3po.version}</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.hierynomus</groupId>
+      <artifactId>asn-one</artifactId>
+      <version>0.4.0</version>
     </dependency>
     <dependency>
       <groupId>org.reaktivity</groupId>
@@ -95,7 +100,7 @@
         <version>${nukleus.plugin.version}</version>
         <configuration>
           <scopeNames>core http</scopeNames>
-          <packageName>org.reaktivity.specification.auth.jwt.internal.types</packageName>
+          <packageName>org.reaktivity.specification.oauth.internal.types</packageName>
         </configuration>
         <executions>
           <execution>

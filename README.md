@@ -1,1 +1,1 @@
-# nukleus-auth-jwt.spec
+# nukleus-oauth.spec

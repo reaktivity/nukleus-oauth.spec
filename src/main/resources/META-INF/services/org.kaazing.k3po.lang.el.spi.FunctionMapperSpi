@@ -1,2 +1,1 @@
-org.reaktivity.specification.auth.jwt.internal.Functions$Mapper
-
+org.reaktivity.specification.nukleus.oauth.internal.OAuthFunctions$Mapper
