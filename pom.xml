@@ -4,12 +4,12 @@
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.reaktivity</groupId>
+  <groupId>org.dknoma</groupId>
   <artifactId>nukleus-oauth.spec</artifactId>
   <version>develop-SNAPSHOT</version>
   <name>OAuth Nukleus Specification</name>
   <description>OAuth Nukleus Specification</description>
-  <url>https://github.com/reaktivity/nukleus-oauth.spec</url>
+  <url>https://github.com/dknoma/nukleus-oauth.spec</url>
 
   <licenses>
     <license>
