@@ -17,7 +17,6 @@
 property scopes "1 2 3"
 
 property oauthToken ${oauth:jwt("RS256")
-                           .claim("iss", "test issuer")
                            .claim("scopes", scopes)
                            .sign()}
 
