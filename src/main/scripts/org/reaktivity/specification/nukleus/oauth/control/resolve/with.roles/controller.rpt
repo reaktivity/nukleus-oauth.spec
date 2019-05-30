@@ -29,8 +29,9 @@ connected
 write 0x00000011
 write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
-write [0x05] "ES256"
-write 0
+write [0x05] "RS256"
+write 2
+write [0x01] "1"
 write flush
 
 read 0x40000011

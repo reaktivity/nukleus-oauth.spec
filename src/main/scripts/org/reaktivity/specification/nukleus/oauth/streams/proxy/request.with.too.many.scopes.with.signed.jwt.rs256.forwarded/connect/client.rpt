@@ -16,10 +16,13 @@
 
 property oauthToken ${oauth:jwt("ES256")
                            .claim("iss", "test issuer")
+                           .claim("scope", "scope1")
+                           .claim("scope", "scope2")
                            .sign()}
 
 connect await ROUTED_PROXY
-        "nukleus://streams/oauth#0"
+        "nukleus://streams/target#0"
+        option nukleus:authorization 0x0001_000000000000L
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 
@@ -30,14 +33,16 @@ write nukleus:begin.ext ${http:headers()
                               .item(":authority", "localhost:8080")
                               .item("authorization", "Bearer ".concat(oauthToken))
                               .build()}
+
+
 connected
 
 write close
+
 read nukleus:begin.ext ${http:headers()
                              .item(":status", "200")
                              .item("content-length", "11")
                              .build()}
-
 read "hello world"
 
 read closed
