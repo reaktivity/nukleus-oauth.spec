@@ -18,7 +18,7 @@ property nukleiR05C ${nuklei:directory("target/nukleus-itests").controlCapacity(
 
 property controlR05C ${nukleiR05C.control()}
 
-property authorization 0x0001_000000000007L
+property authorization 0x0001_000000000015L
 
 connect "agrona://stream/bidirectional"
         option agrona:reader ${agrona:broadcastReceiver(controlR05C.controller)}
@@ -30,10 +30,10 @@ write 0x00000011
 write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x05] "RS256"
-write 6
-write [0x01] "1"
-write [0x01] "2"
-write [0x01] "3"
+write 21
+write [0x06] "scope1"
+write [0x06] "scope2"
+write [0x06] "scope3"
 write flush
 
 read 0x40000011

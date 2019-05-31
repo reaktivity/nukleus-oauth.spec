@@ -14,11 +14,9 @@
 # under the License.
 #
 
-property scopes "1 2 3"
-
 property oauthToken ${oauth:jwt("ES256")
                            .claim("iss", "test issuer")
-                           .claim("scopes", scopes)
+                           .claim("scopes", "1 2 3")
                            .sign()}
 
 connect await ROUTED_PROXY

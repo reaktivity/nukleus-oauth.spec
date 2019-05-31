@@ -18,7 +18,7 @@ property nukleiUR06C ${nuklei:directory("target/nukleus-itests").controlCapacity
 
 property controlUR06C ${nukleiUR06C.control()}
 
-property authorization 0x0001_00000000000cL
+property authorization 0x0001_000000000015L
 
 connect await RESOLVED
         "agrona://stream/bidirectional"
