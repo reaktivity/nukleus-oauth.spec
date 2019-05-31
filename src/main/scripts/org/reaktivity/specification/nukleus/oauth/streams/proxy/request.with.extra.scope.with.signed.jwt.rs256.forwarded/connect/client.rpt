@@ -16,11 +16,12 @@
 
 property oauthToken ${oauth:jwt("RS256")
                            .claim("iss", "test issuer")
-                           .claim("scopes", "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49toomany")
+                           .claim("scopes", "scope1 scope3 scope4")
                            .sign()}
 
 connect await ROUTED_PROXY
-        "nukleus://streams/oauth#0"
+        "nukleus://streams/target#0"
+        option nukleus:authorization 0x0001_000000000005L
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 
@@ -31,12 +32,16 @@ write nukleus:begin.ext ${http:headers()
                               .item(":authority", "localhost:8080")
                               .item("authorization", "Bearer ".concat(oauthToken))
                               .build()}
+
+
 connected
 
 write close
+
 read nukleus:begin.ext ${http:headers()
-                             .item(":status", "401")
-                             .item("WWW-Authenticate", "Bearer realm=\"example\"")
+                             .item(":status", "200")
+                             .item("content-length", "11")
                              .build()}
+read "hello world"
 
 read closed

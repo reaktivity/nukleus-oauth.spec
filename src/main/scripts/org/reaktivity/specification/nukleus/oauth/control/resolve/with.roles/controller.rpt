@@ -18,7 +18,7 @@ property nukleiR05C ${nuklei:directory("target/nukleus-itests").controlCapacity(
 
 property controlR05C ${nukleiR05C.control()}
 
-property authorization 0x0001_000000000015L
+property authorization 0x0001_000000000007L
 
 connect "agrona://stream/bidirectional"
         option agrona:reader ${agrona:broadcastReceiver(controlR05C.controller)}

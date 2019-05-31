@@ -14,7 +14,7 @@
 # under the License.
 #
 
-property expectedAuthorization 0x0001000000000000L
+property expectedAuthorization 0x0001_000000000005L
 
 accept await ROUTED_PROXY
         "nukleus://streams/target#0"
@@ -35,8 +35,10 @@ connected
 read closed
 
 write nukleus:begin.ext ${http:headers()
-                              .item(":status", "401")
-                              .item("WWW-Authenticate", "Bearer realm=\"example\"")
+                              .item(":status", "200")
+                              .item("content-length", "11")
                               .build()}
+
+write "hello world"
 
 write close

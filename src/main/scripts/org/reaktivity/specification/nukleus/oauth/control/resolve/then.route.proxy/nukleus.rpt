@@ -14,33 +14,29 @@
 # under the License.
 #
 
-property nukleiR05N ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
+property nukleiRG010101N ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
 
-property controlR05N ${nukleiR05N.controlNew()}
+property controlRG010101N ${nukleiRG010101N.controlNew()}
 
-property authorization 0x0001_000000000007L
-
-connect "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:manyToOneReader(controlR05N.nukleus)}
-        option agrona:writer ${agrona:broadcastTransmitter(controlR05N.controller)}
+connect await RESOLVED
+        "agrona://stream/bidirectional"
+        option agrona:reader ${agrona:manyToOneReader(controlRG010101N.nukleus)}
+        option agrona:writer ${agrona:broadcastTransmitter(controlRG010101N.controller)}
 
 connected
 
-read 0x00000011
-read (long:correlationIdR05N)
+read 0x00000001
+read (long:correlationIdRG010101N)
 read ${core:string("oauth")}
-read [0x05] "RS256"
-read 21
-read [0x06] "scope1"
-read [0x06] "scope2"
-read [0x06] "scope3"
+read [0x02]
+read [0..8] # authorization
+read ${core:string("oauth#0")}
+read ${core:string("target#0")}
 
-write 0x40000011
-write ${correlationIdR05N}
-write ${authorization}
+write 0x40000001
+write ${correlationIdRG010101N}
+write ${nukleus:newClientRouteId("oauth#0", "target#0")}
 write flush
-
-write notify RESOLVED
 
 close
 closed
