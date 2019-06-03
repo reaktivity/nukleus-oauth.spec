@@ -14,7 +14,7 @@
 # under the License.
 #
 
-property expectedAuthorization 0x0001000000000005L
+property expectedAuthorization 0x0001_000000000005L
 
 accept await ROUTED_PROXY
         "nukleus://streams/target#0"
