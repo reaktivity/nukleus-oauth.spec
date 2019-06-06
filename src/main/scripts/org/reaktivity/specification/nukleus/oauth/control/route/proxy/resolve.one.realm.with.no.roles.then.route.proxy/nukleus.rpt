@@ -14,16 +14,32 @@
 # under the License.
 #
 
+property nukleiR05N ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
+
+property controlR05N ${nukleiR05N.controlNew()}
+
 property nukleiRG010101N ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
 
 property controlRG010101N ${nukleiRG010101N.controlNew()}
 
-connect await RESOLVED
-        "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:manyToOneReader(controlRG010101N.nukleus)}
-        option agrona:writer ${agrona:broadcastTransmitter(controlRG010101N.controller)}
+property authorization 0x0001_000000000000L
+
+connect "agrona://stream/bidirectional"
+        option agrona:reader ${agrona:manyToOneReader(controlR05N.nukleus)}
+        option agrona:writer ${agrona:broadcastTransmitter(controlR05N.controller)}
 
 connected
+
+read 0x00000011
+read (long:correlationIdR052N)
+read ${core:string("oauth")}
+read [0x05] "RS256"
+read 0
+
+write 0x40000011
+write ${correlationIdR052N}
+write ${authorization}
+write flush
 
 read 0x00000001
 read (long:correlationIdRG010101N)
