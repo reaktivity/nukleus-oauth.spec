@@ -22,9 +22,6 @@ property nukleiRG010101N ${nuklei:directory("target/nukleus-itests").controlCapa
 
 property controlRG010101N ${nukleiRG010101N.controlNew()}
 
-property authorization1 0x0001_000000000000L # security realm only
-property authorization2 0x0002_000000000000L # security realm only
-
 connect "agrona://stream/bidirectional"
         option agrona:reader ${agrona:manyToOneReader(controlR05N.nukleus)}
         option agrona:writer ${agrona:broadcastTransmitter(controlR05N.controller)}
@@ -39,7 +36,7 @@ read 0
 
 write 0x40000011
 write ${correlationIdR05N}
-write ${authorization1}
+write 0x0001_000000000000L # security realm only
 write flush
 
 read 0x00000011
@@ -50,7 +47,7 @@ read 0
 
 write 0x40000011
 write ${correlationIdR05N}
-write ${authorization2}
+write 0x0002_000000000000L # security realm only
 write flush
 
 read 0x00000001

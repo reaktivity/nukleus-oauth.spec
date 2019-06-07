@@ -22,8 +22,6 @@ property nukleiRG010101C ${nuklei:directory("target/nukleus-itests").controlCapa
 
 property controlRG010101C ${nukleiRG010101C.control()}
 
-property authorization 0x0001_000000000007L
-
 connect "agrona://stream/bidirectional"
         option agrona:reader ${agrona:broadcastReceiver(controlR05C.controller)}
         option agrona:writer ${agrona:manyToOneWriter(controlR05C.nukleus)}
@@ -42,7 +40,7 @@ write flush
 
 read 0x40000011
 read ${controlR05C.correlationId()}
-read ${authorization}
+read [0..8] # authorization
 
 write 0x00000001
 write ${controlRG010101C.nextCorrelationId()}
