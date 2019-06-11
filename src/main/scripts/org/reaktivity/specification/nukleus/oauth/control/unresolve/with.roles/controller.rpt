@@ -18,8 +18,6 @@ property nukleiUR06C ${nuklei:directory("target/nukleus-itests").controlCapacity
 
 property controlUR06C ${nukleiUR06C.control()}
 
-property authorization 0x0001_00000000000cL
-
 connect await RESOLVED
         "agrona://stream/bidirectional"
         option agrona:reader ${agrona:broadcastReceiver(controlUR06C.controller)}
@@ -30,7 +28,7 @@ connected
 write 0x00000012
 write ${controlUR06C.nextCorrelationId()}
 write ${core:string("oauth")}
-write ${authorization}
+write 0x0001_000000000007L
 write flush
 
 read 0x40000012
