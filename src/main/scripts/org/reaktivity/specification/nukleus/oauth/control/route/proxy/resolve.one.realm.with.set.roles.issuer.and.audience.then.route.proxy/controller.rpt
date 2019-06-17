@@ -36,8 +36,8 @@ write 21
 write [0x06] "scope1"
 write [0x06] "scope2"
 write [0x06] "scope3"
-write [0x0B] "test issuer"
-write [0x0D] "test audience"
+write [0x0B] "test issuer"      # issuer extension
+write [0x0D] "test audience"    # audience extension
 write flush
 
 read 0x40000011

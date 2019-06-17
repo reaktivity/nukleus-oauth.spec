@@ -15,7 +15,6 @@
 #
 
 property oauthToken ${oauth:jwt("RS256")
-                           .claim("iss", "test issuer")
                            .claim("nbf", 1809072000)
                            .sign()}
 

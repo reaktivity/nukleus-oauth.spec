@@ -15,7 +15,8 @@
 #
 
 property oauthToken ${oauth:jwt("RS256")
-                           .expiresInSeconds(5)
+                           .claim("aud", "test audience")
+                           .claim("scope", "scope1 scope2 scope3")
                            .sign()}
 
 connect await ROUTED_PROXY
@@ -38,4 +39,6 @@ read nukleus:begin.ext ${http:headers()
                              .item("content-length", "11")
                              .build()}
 
-read aborted
+read "hello world"
+
+read closed

@@ -15,7 +15,6 @@
 #
 
 property oauthToken ${oauth:jwt("RS256")
-                           .claim("iss", "test issuer")
                            .expiresInSeconds(5)
                            .sign()}
 

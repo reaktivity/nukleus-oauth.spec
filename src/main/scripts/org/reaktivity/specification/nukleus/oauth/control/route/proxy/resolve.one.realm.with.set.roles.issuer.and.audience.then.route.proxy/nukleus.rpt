@@ -36,8 +36,8 @@ read 21
 read [0x06] "scope1"
 read [0x06] "scope2"
 read [0x06] "scope3"
-read [0x0B] "test issuer"
-read [0x0D]"test audience"
+read [0x0B] "test issuer"   # issuer extension
+read [0x0D] "test audience"  # audience extension
 
 write 0x40000011
 write ${correlationIdR051N}

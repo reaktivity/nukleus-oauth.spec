@@ -36,6 +36,8 @@ write 21
 write [0x06] "scope1"
 write [0x06] "scope2"
 write [0x06] "scope3"
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -48,6 +50,8 @@ write ${core:string("oauth")}
 write [0x05] "RS256"
 write 7
 write [0x06] "scope1"
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011

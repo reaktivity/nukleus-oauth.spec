@@ -33,6 +33,8 @@ read (long:correlationIdR05N)
 read ${core:string("oauth")}
 read [0x05] "RS256"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR05N}
@@ -44,6 +46,8 @@ read (long:correlationIdR05N)
 read ${core:string("oauth")}
 read [0x05] "ES256"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR05N}
