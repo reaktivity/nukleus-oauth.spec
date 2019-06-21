@@ -29,6 +29,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x06] "realm1"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -40,6 +42,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x06] "realm2"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -51,6 +55,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x06] "realm3"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -62,6 +68,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x06] "realm4"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -73,6 +81,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x06] "realm5"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -84,6 +94,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x06] "realm6"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -95,6 +107,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x06] "realm7"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -106,6 +120,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x06] "realm8"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -117,6 +133,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x06] "realm9"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -128,6 +146,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x07] "realm10"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -139,6 +159,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x07] "realm11"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -150,6 +172,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x07] "realm12"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -161,6 +185,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x07] "realm13"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -172,6 +198,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x07] "realm14"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -183,6 +211,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x07] "realm15"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -194,6 +224,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x07] "realm16"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
@@ -205,6 +237,8 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x0e] "realm17TooMany"
 write 0
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 write flush
 
 read 0x40000000

@@ -29,6 +29,8 @@ read (long:correlationIdR051N)
 read ${core:string("oauth")}
 read [0x06] "realm1"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR051N}
@@ -40,6 +42,8 @@ read (long:correlationIdR052N)
 read ${core:string("oauth")}
 read [0x06] "realm2"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR052N}
@@ -51,6 +55,8 @@ read (long:correlationIdR053N)
 read ${core:string("oauth")}
 read [0x06] "realm3"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR053N}
@@ -62,6 +68,8 @@ read (long:correlationIdR054N)
 read ${core:string("oauth")}
 read [0x06] "realm4"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR054N}
@@ -73,6 +81,8 @@ read (long:correlationIdR055N)
 read ${core:string("oauth")}
 read [0x06] "realm5"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR055N}
@@ -84,6 +94,8 @@ read (long:correlationIdR056N)
 read ${core:string("oauth")}
 read [0x06] "realm6"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR056N}
@@ -95,6 +107,8 @@ read (long:correlationIdR057N)
 read ${core:string("oauth")}
 read [0x06] "realm7"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR057N}
@@ -106,6 +120,8 @@ read (long:correlationIdR058N)
 read ${core:string("oauth")}
 read [0x06] "realm8"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR058N}
@@ -117,6 +133,8 @@ read (long:correlationIdR059N)
 read ${core:string("oauth")}
 read [0x06] "realm9"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR059N}
@@ -128,6 +146,8 @@ read (long:correlationIdR0510N)
 read ${core:string("oauth")}
 read [0x07] "realm10"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR0510N}
@@ -139,6 +159,8 @@ read (long:correlationIdR0511N)
 read ${core:string("oauth")}
 read [0x07] "realm11"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR0511N}
@@ -150,6 +172,8 @@ read (long:correlationIdR0512N)
 read ${core:string("oauth")}
 read [0x07] "realm12"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR0512N}
@@ -161,6 +185,8 @@ read (long:correlationIdR0513N)
 read ${core:string("oauth")}
 read [0x07] "realm13"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR0513N}
@@ -172,6 +198,8 @@ read (long:correlationIdR0514N)
 read ${core:string("oauth")}
 read [0x07] "realm14"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR0514N}
@@ -183,6 +211,8 @@ read (long:correlationIdR0515N)
 read ${core:string("oauth")}
 read [0x07] "realm15"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR0515N}
@@ -194,6 +224,8 @@ read (long:correlationIdR0516N)
 read ${core:string("oauth")}
 read [0x07] "realm16"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000011
 write ${correlationIdR0516N}
@@ -205,6 +237,8 @@ read (long:correlationIdR0517N)
 read ${core:string("oauth")}
 read [0x0e] "realm17TooMany"
 read 0
+read [0x00]        # no issuer extension
+read [0x00]        # no audience extension
 
 write 0x40000000
 write ${correlationIdR0517N}

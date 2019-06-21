@@ -78,6 +78,8 @@ write [0x06] "role46"
 write [0x06] "role47"
 write [0x06] "role48"
 write [0x0d] "role49TooMany"
+write [0x00]        # no issuer extension
+write [0x00]        # no audience extension
 
 write flush
 
