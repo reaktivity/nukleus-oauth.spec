@@ -78,8 +78,6 @@ read [0x06] "role46"
 read [0x06] "role47"
 read [0x06] "role48"
 read [0x0d] "role49TooMany"
-read [0x00]        # no issuer extension
-read [0x00]        # no audience extension
 
 write 0x40000000
 write ${correlationIdV05N}

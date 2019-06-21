@@ -31,8 +31,6 @@ write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x05] "RS256"
 write 0
-write [0x00]        # no issuer extension
-write [0x00]        # no audience extension
 write flush
 
 read 0x40000011
