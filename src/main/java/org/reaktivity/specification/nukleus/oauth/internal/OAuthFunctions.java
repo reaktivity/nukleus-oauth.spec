@@ -40,8 +40,11 @@ import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
+import org.agrona.MutableDirectBuffer;
+import org.agrona.concurrent.UnsafeBuffer;
 import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
+import org.reaktivity.specification.oauth.internal.types.control.OAuthResolveExFW;
 
 import com.hierynomus.asn1.encodingrules.der.DERDecoder;
 import com.hierynomus.asn1.types.ASN1Tag;
@@ -58,6 +61,99 @@ public final class OAuthFunctions
         helperFactories.put("RS256", () -> new JwtHelper(RFC7515_RS256, "RS256", "SHA256withRSA"));
         helperFactories.put("ES256", () -> new JwtHelper(RFC7515_ES256, "ES256", "SHA256withECDSA"));
         HELPER_FACTORIES = unmodifiableMap(helperFactories);
+    }
+
+    // TODO: create OAuthRouteEx extension. maybe use for `iat`?
+    @Function
+    public static OAuthRouteExBuilder routeEx()
+    {
+        return new OAuthRouteExBuilder();
+    }
+
+    public static final class OAuthRouteExBuilder
+    {
+
+    }
+
+    @Function
+    public static OAuthResolveExBuilder resolveEx()
+    {
+        return new OAuthResolveExBuilder();
+    }
+
+
+    public static final class OAuthResolveExBuilder
+    {
+//        private final ResolveFW.Builder resolveRW;
+        private final OAuthResolveExFW.Builder resolveExRW;
+
+        private OAuthResolveExBuilder()
+        {
+//            MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[1024 * 8]);
+//            this.resolveRW = new ResolveFW.Builder().wrap(writeBuffer, 0, writeBuffer.capacity());
+            MutableDirectBuffer writeExBuffer = new UnsafeBuffer(new byte[1024 * 8]);
+            this.resolveExRW = new OAuthResolveExFW.Builder().wrap(writeExBuffer, 0, writeExBuffer.capacity());
+        }
+
+//        public OAuthResolveExBuilder correlationId(
+//            long id)
+//        {
+//            resolveRW.correlationId(id);
+//            return this;
+//        }
+//
+//        public OAuthResolveExBuilder nukleus(
+//            String nukleusName)
+//        {
+//            resolveRW.nukleus(nukleusName);
+//            return this;
+//        }
+//
+//        public OAuthResolveExBuilder realm(
+//            String realmName)
+//        {
+//            resolveRW.realm(realmName);
+//            return this;
+//        }
+//
+//        public OAuthResolveExBuilder roles(
+//            String... roleNames)
+//        {
+//            resolveRW.roles(b -> Arrays.asList(roleNames).forEach(s -> b.item(sb -> sb.set(s, UTF_8))));
+//            return this;
+//        }
+//
+//        public OAuthResolveExBuilder extension()
+//        {
+//            final OAuthResolveExFW resolveEx = resolveExRW.build();
+//            resolveRW.extension(resolveEx.buffer(), resolveEx.offset(), resolveEx.sizeof());
+//            return this;
+//        }
+
+        public OAuthResolveExBuilder issuer(
+            String issuerName)
+        {
+            resolveExRW.issuer(issuerName);
+            return this;
+        }
+
+        public OAuthResolveExBuilder audience(
+            String audienceName)
+        {
+            resolveExRW.issuer(audienceName);
+            return this;
+        }
+
+        public byte[] build()
+        {
+//            final ResolveFW resolve = resolveRW.build();
+//            final byte[] array = new byte[resolve.sizeof()];
+//            resolve.buffer().getBytes(resolve.offset(), array);
+            final OAuthResolveExFW resolveEx = resolveExRW.build();
+            final byte[] array = new byte[resolveEx.sizeof()];
+            resolveEx.buffer().getBytes(resolveEx.offset(), array);
+            return array;
+        }
     }
 
     @Function

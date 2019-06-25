@@ -42,15 +42,15 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <checkstyle.config.location>src/conf/checkstyle/configuration.xml</checkstyle.config.location>
     <checkstyle.suppressions.location>src/conf/checkstyle/suppressions.xml</checkstyle.suppressions.location>
-    <jacoco.coverage.ratio>0.95</jacoco.coverage.ratio>
-    <jacoco.missed.count>0</jacoco.missed.count>
+    <jacoco.coverage.ratio>0.04</jacoco.coverage.ratio>
+    <jacoco.missed.count>79</jacoco.missed.count>
 
     <junit.version>4.12</junit.version>
-    <k3po.version>3.0.0-alpha-100</k3po.version>
-    <k3po.nukleus.ext.version>develop-SNAPSHOT</k3po.nukleus.ext.version>
+    <k3po.version>3.0.0-alpha-101</k3po.version>
+    <k3po.nukleus.ext.version>0.42</k3po.nukleus.ext.version>
 
     <nukleus.plugin.version>0.33</nukleus.plugin.version>
-    <nukleus.http.spec.version>develop-SNAPSHOT</nukleus.http.spec.version>
+    <nukleus.http.spec.version>0.72</nukleus.http.spec.version>
   </properties>
 
   <dependencies>
@@ -99,12 +99,13 @@
         <artifactId>nukleus-maven-plugin</artifactId>
         <version>${nukleus.plugin.version}</version>
         <configuration>
-          <scopeNames>core http</scopeNames>
+          <scopeNames>core http oauth</scopeNames>
           <packageName>org.reaktivity.specification.oauth.internal.types</packageName>
         </configuration>
         <executions>
           <execution>
             <goals>
+              <goal>generate</goal>
               <goal>validate</goal>
             </goals>
           </execution>

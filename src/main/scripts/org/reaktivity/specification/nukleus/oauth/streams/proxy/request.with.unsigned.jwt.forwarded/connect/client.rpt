@@ -22,12 +22,13 @@ connect await ROUTED_PROXY
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 
-write nukleus:begin.ext ${http:headers()
-                              .item(":scheme", "http")
-                              .item(":method", "GET")
-                              .item(":path", "/path")
-                              .item(":authority", "localhost:8080")
-                              .item("authorization", "Bearer ".concat(oauthToken))
+write nukleus:begin.ext ${http:beginEx()
+                              .typeId(nukleus:id("http"))
+                              .header(":scheme", "http")
+                              .header(":method", "GET")
+                              .header(":path", "/path")
+                              .header(":authority", "localhost:8080")
+                              .header("authorization", "Bearer ".concat(oauthToken))
                               .build()}
 
 
@@ -35,9 +36,10 @@ connected
 
 write close
 
-read nukleus:begin.ext ${http:headers()
-                             .item(":status", "401")
-                             .item("WWW-Authenticate", "Bearer realm=\"example\"")
+read nukleus:begin.ext ${http:beginEx()
+                             .typeId(nukleus:id("http"))
+                             .header(":status", "401")
+                             .header("WWW-Authenticate", "Bearer realm=\"example\"")
                              .build()}
 
 read closed
