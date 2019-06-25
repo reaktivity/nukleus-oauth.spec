@@ -19,20 +19,22 @@ connect await ROUTED_PROXY
         option nukleus:window 10
         option nukleus:transmission "half-duplex"
 
-write nukleus:begin.ext ${http:headers()
-                              .item(":scheme", "http")
-                              .item(":method", "POST")
-                              .item(":path", "/path")
-                              .item(":authority", "localhost:8080")
-                              .item("content-length", "12")
+write nukleus:begin.ext ${http:beginEx()
+                              .typeId(nukleus:id("http"))
+                              .header(":scheme", "http")
+                              .header(":method", "POST")
+                              .header(":path", "/path")
+                              .header(":authority", "localhost:8080")
+                              .header("content-length", "12")
                               .build()}
 connected
 write "request data"
 write close
 
-read nukleus:begin.ext ${http:headers()
-                             .item(":status", "200")
-                             .item("content-length", "16")
+read nukleus:begin.ext ${http:beginEx()
+                             .typeId(nukleus:id("http"))
+                             .header(":status", "200")
+                             .header("content-length", "16")
                              .build()}
 read "unsecure content"
 read closed

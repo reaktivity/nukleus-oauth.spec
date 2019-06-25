@@ -18,11 +18,12 @@ connect await ROUTED_PROXY
         "nukleus://streams/oauth#0"
         option nukleus:window 8192
 
-write nukleus:begin.ext ${http:headers()
-                              .item(":scheme", "http")
-                              .item(":method", "GET")
-                              .item(":path", "/path")
-                              .item(":authority", "localhost:8080")
+write nukleus:begin.ext ${http:beginEx()
+                              .typeId(nukleus:id("http"))
+                              .header(":scheme", "http")
+                              .header(":method", "GET")
+                              .header(":path", "/path")
+                              .header(":authority", "localhost:8080")
                               .build()}
 
 connected
