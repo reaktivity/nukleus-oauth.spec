@@ -15,7 +15,6 @@
 #
 
 property oauthToken ${oauth:jwt("ES256")
-                           .claim("iss", "test issuer")
                            .sign()}
 
 connect await ROUTED_PROXY
