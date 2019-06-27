@@ -71,7 +71,7 @@ public final class OAuthFunctionsTest
         assertNotNull(token);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = GeneralSecurityException.class)
     public void shouldFailSign() throws GeneralSecurityException
     {
         OAuthFunctions.jwt(RFC7515_RS256, "RS256", "wrong alg test")

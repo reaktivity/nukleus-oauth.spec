@@ -17,9 +17,9 @@ package org.reaktivity.specification.nukleus.oauth.internal;
 
 import java.math.BigInteger;
 import java.security.AlgorithmParameters;
+import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
-import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.ECGenParameterSpec;
@@ -27,8 +27,6 @@ import java.security.spec.ECParameterSpec;
 import java.security.spec.ECPoint;
 import java.security.spec.ECPrivateKeySpec;
 import java.security.spec.ECPublicKeySpec;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.InvalidParameterSpecException;
 import java.security.spec.KeySpec;
 import java.security.spec.RSAPrivateCrtKeySpec;
 import java.security.spec.RSAPublicKeySpec;
@@ -88,14 +86,14 @@ public final class OAuthJwtKeys
             RFC7515_RS256 = initRSAKeyPair(rsa256);
             RFC7515_ES256 = initECKeyPair(es256);
         }
-        catch(Exception ex)
+        catch(GeneralSecurityException ex)
         {
             throw new IllegalStateException(ex);
         }
     }
 
     private static KeyPair initRSAKeyPair(
-        Map<String, String> params) throws NoSuchAlgorithmException, InvalidKeySpecException
+        Map<String, String> params) throws GeneralSecurityException
     {
         Base64.Decoder base64 = Base64.getUrlDecoder();
 
@@ -120,7 +118,7 @@ public final class OAuthJwtKeys
     }
 
     private static KeyPair initECKeyPair(
-        Map<String, String> params) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidParameterSpecException
+        Map<String, String> params) throws GeneralSecurityException
     {
         Base64.Decoder base64 = Base64.getUrlDecoder();
 

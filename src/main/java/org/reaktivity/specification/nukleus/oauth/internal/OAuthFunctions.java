@@ -40,6 +40,7 @@ import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
+import org.agrona.LangUtil;
 import org.agrona.MutableDirectBuffer;
 import org.agrona.concurrent.UnsafeBuffer;
 import org.kaazing.k3po.lang.el.Function;
@@ -247,17 +248,17 @@ public final class OAuthFunctions
             String algorithm)
         {
             UnaryOperator<byte[]> decoder = algorithm.endsWith("withECDSA") ? JwtSigner::decodeDER : UnaryOperator.identity();
-
+            JwtSigner newSigner = null;
             try
             {
                 Signature signature = Signature.getInstance(algorithm);
-
-                return new JwtSigner(signature, decoder);
+                newSigner = new JwtSigner(signature, decoder);
             }
             catch (NoSuchAlgorithmException ex)
             {
-                throw new RuntimeException(ex);
+                LangUtil.rethrowUnchecked(ex);
             }
+            return newSigner;
         }
     }
 
