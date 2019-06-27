@@ -15,7 +15,9 @@
 #
 
 property oauthToken ${oauth:jwt("RS256")
-                           .claim("nbf", 1809072000)
+                           .claim("iss", "test issuer")
+                           .claim("aud", "test audience")
+                           .claim("scope", "scope1 scope2 scope3")
                            .sign()}
 
 connect await ROUTED_PROXY
@@ -36,8 +38,10 @@ connected
 write close
 read nukleus:begin.ext ${http:beginEx()
                              .typeId(nukleus:id("http"))
-                             .header(":status", "401")
-                             .header("WWW-Authenticate", "Bearer realm=\"example\"")
+                             .header(":status", "200")
+                             .header("content-length", "11")
                              .build()}
+
+read "hello world"
 
 read closed

@@ -40,8 +40,12 @@ import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
+import org.agrona.LangUtil;
+import org.agrona.MutableDirectBuffer;
+import org.agrona.concurrent.UnsafeBuffer;
 import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
+import org.reaktivity.specification.oauth.internal.types.control.OAuthResolveExFW;
 
 import com.hierynomus.asn1.encodingrules.der.DERDecoder;
 import com.hierynomus.asn1.types.ASN1Tag;
@@ -61,11 +65,31 @@ public final class OAuthFunctions
     }
 
     @Function
+    public static OAuthResolveExBuilder resolveEx()
+    {
+        return new OAuthResolveExBuilder();
+    }
+
+    @Function
     public static JwtHelper jwt(
         String kind)
     {
         Supplier<JwtHelper> helperFactory = HELPER_FACTORIES.get(kind);
         return helperFactory.get();
+    }
+
+    static JwtHelper jwt(
+        KeyPair pair,
+        String kind,
+        String algorithm)
+    {
+        return new JwtHelper(pair, kind, algorithm);
+    }
+
+    static byte[] decodeIntegrity(
+        byte[] integrity)
+    {
+        return JwtSigner.decodeDER(integrity);
     }
 
     public static final class JwtHelper
@@ -122,6 +146,39 @@ public final class OAuthFunctions
         }
     }
 
+    public static final class OAuthResolveExBuilder
+    {
+        private final OAuthResolveExFW.Builder resolveExRW;
+
+        private OAuthResolveExBuilder()
+        {
+            MutableDirectBuffer writeExBuffer = new UnsafeBuffer(new byte[1024 * 8]);
+            this.resolveExRW = new OAuthResolveExFW.Builder().wrap(writeExBuffer, 0, writeExBuffer.capacity());
+        }
+
+        public OAuthResolveExBuilder issuer(
+            String issuerName)
+        {
+            resolveExRW.issuer(issuerName);
+            return this;
+        }
+
+        public OAuthResolveExBuilder audience(
+            String audienceName)
+        {
+            resolveExRW.audience(audienceName);
+            return this;
+        }
+
+        public byte[] build()
+        {
+            final OAuthResolveExFW resolveEx = resolveExRW.build();
+            final byte[] array = new byte[resolveEx.sizeof()];
+            resolveEx.buffer().getBytes(resolveEx.offset(), array);
+            return array;
+        }
+    }
+
     private static final class JwtSigner
     {
         private static final Map<String, JwtSigner> SIGNERS = new ConcurrentHashMap<>();
@@ -152,7 +209,7 @@ public final class OAuthFunctions
             return decoder.apply(signature.sign());
         }
 
-        private static byte[] decodeDER(
+        static byte[] decodeDER(
             byte[] integrity)
         {
             final DERDecoder decoder = new DERDecoder();
@@ -166,7 +223,6 @@ public final class OAuthFunctions
 
             final int offsetR = r.length & 0x01;
             final int lengthR = r.length - offsetR;
-
             final int offsetS = s.length & 0x01;
             final int lengthS = s.length - offsetS;
 
@@ -192,17 +248,17 @@ public final class OAuthFunctions
             String algorithm)
         {
             UnaryOperator<byte[]> decoder = algorithm.endsWith("withECDSA") ? JwtSigner::decodeDER : UnaryOperator.identity();
-
+            JwtSigner newSigner = null;
             try
             {
                 Signature signature = Signature.getInstance(algorithm);
-
-                return new JwtSigner(signature, decoder);
+                newSigner = new JwtSigner(signature, decoder);
             }
             catch (NoSuchAlgorithmException ex)
             {
-                throw new RuntimeException(ex);
+                LangUtil.rethrowUnchecked(ex);
             }
+            return newSigner;
         }
     }
 

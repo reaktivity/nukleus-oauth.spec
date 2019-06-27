@@ -14,30 +14,29 @@
 # under the License.
 #
 
-property oauthToken ${oauth:jwt("RS256")
-                           .claim("nbf", 1809072000)
-                           .sign()}
-
-connect await ROUTED_PROXY
+accept await ROUTED_PROXY
         "nukleus://streams/oauth#0"
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
+accepted
+
+read nukleus:begin.ext ${http:beginEx()
+                             .typeId(nukleus:id("http"))
+                             .header(":scheme", "http")
+                             .header(":method", "GET")
+                             .header(":path", "/path")
+                             .header(":authority", "localhost:8080")
+                             .header("authorization", "Bearer ".concat(oauthToken))
+                             .build()}
+connected
+
+read closed
 
 write nukleus:begin.ext ${http:beginEx()
                               .typeId(nukleus:id("http"))
-                              .header(":scheme", "http")
-                              .header(":method", "GET")
-                              .header(":path", "/path")
-                              .header(":authority", "localhost:8080")
-                              .header("authorization", "Bearer ".concat(oauthToken))
+                              .header(":status", "200")
+                              .header("content-length", "11")
                               .build()}
-connected
+write "hello world"
 
 write close
-read nukleus:begin.ext ${http:beginEx()
-                             .typeId(nukleus:id("http"))
-                             .header(":status", "401")
-                             .header("WWW-Authenticate", "Bearer realm=\"example\"")
-                             .build()}
-
-read closed

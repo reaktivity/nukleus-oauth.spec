@@ -18,9 +18,7 @@ property nukleiR05C ${nuklei:directory("target/nukleus-itests").controlCapacity(
 
 property controlR05C ${nukleiR05C.control()}
 
-property nukleiRG010101C ${nuklei:directory("target/nukleus-itests").controlCapacity(4096, 4096)}
-
-property controlRG010101C ${nukleiRG010101C.control()}
+property authorization 0x0001_000000000000L
 
 connect "agrona://stream/bidirectional"
         option agrona:reader ${agrona:broadcastReceiver(controlR05C.controller)}
@@ -32,44 +30,18 @@ write 0x00000011
 write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x05] "RS256"
-write 21
-write [0x06] "scope1"
-write [0x06] "scope2"
-write [0x06] "scope3"
+write 0
+write ${oauth:resolveEx()
+             .issuer("test issuer")
+             .audience("test audience")
+             .build()}
 write flush
 
 read 0x40000011
 read ${controlR05C.correlationId()}
-read [0..8] # authorization
+read ${authorization}
 
-write 0x00000011
-write ${controlR05C.nextCorrelationId()}
-write ${core:string("oauth")}
-write [0x05] "RS256"
-write 7
-write [0x06] "scope1"
-write [0x00]        # no issuer extension
-write [0x00]        # no audience extension
-write flush
-
-read 0x40000011
-read ${controlR05C.correlationId()}
-read [0..8] # authorization
-
-write 0x00000001
-write ${controlRG010101C.nextCorrelationId()}
-write ${core:string("oauth")}
-write [0x02]
-write 0x0000_000000000000L
-write ${core:string("oauth#0")}
-write ${core:string("target#0")}
-write flush
-
-read 0x40000001
-read ${controlRG010101C.correlationId()}
-read (long:newProxyRouteId)
-
-read notify ROUTED_PROXY
+read notify RESOLVED
 
 close
 closed
