@@ -72,8 +72,6 @@ public final class OAuthJwtKeys
                         "y26F0EmpScGLq2MowX7fhd_QJQ3ydy5cY7YIBi87w93IKLEdfnbJtoOPLU" +
                         "W0ITrJReOgo1cq9SbsxYawBgfp_gh6A5603k2-ZQwVK0JKSHuLFkuQ3U");
 
-        RFC7515_RS256 = initRSAKeyPair(rsa256);
-
         // RFC 7515, section A.3.1
         Map<String, String> es256 = new HashMap<>();
         es256.put("kty", "EC");
@@ -82,70 +80,68 @@ public final class OAuthJwtKeys
         es256.put("y", "x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0");
         es256.put("d", "jpsQnnGQmL-YBIffH1136cspYG6-0iY7X1fCE9-E9LI");
 
-        RFC7515_ES256 = initECKeyPair(es256);
+        KeyPair rsKeyPair = null;
+        KeyPair esKeyPair = null;
+        try
+        {
+            rsKeyPair = initRSAKeyPair(rsa256);
+            esKeyPair = initECKeyPair(es256);
+        }
+        catch(Exception e)
+        {
+            // Utility
+        }
+        RFC7515_RS256 = rsKeyPair;
+        RFC7515_ES256 = esKeyPair;
     }
 
     private static KeyPair initRSAKeyPair(
-        Map<String, String> params)
+        Map<String, String> params) throws Exception
     {
-        try
-        {
-            Base64.Decoder base64 = Base64.getUrlDecoder();
+        Base64.Decoder base64 = Base64.getUrlDecoder();
 
-            BigInteger n = new BigInteger(1, base64.decode(params.get("n")));
-            BigInteger e = new BigInteger(1, base64.decode(params.get("e")));
+        BigInteger n = new BigInteger(1, base64.decode(params.get("n")));
+        BigInteger e = new BigInteger(1, base64.decode(params.get("e")));
 
-            BigInteger d = new BigInteger(1, base64.decode(params.get("d")));
-            BigInteger p = new BigInteger(1, base64.decode(params.get("p")));
-            BigInteger q = new BigInteger(1, base64.decode(params.get("q")));
-            BigInteger dp = new BigInteger(1, base64.decode(params.get("dp")));
-            BigInteger dq = new BigInteger(1, base64.decode(params.get("dq")));
-            BigInteger qi = new BigInteger(1, base64.decode(params.get("qi")));
+        BigInteger d = new BigInteger(1, base64.decode(params.get("d")));
+        BigInteger p = new BigInteger(1, base64.decode(params.get("p")));
+        BigInteger q = new BigInteger(1, base64.decode(params.get("q")));
+        BigInteger dp = new BigInteger(1, base64.decode(params.get("dp")));
+        BigInteger dq = new BigInteger(1, base64.decode(params.get("dq")));
+        BigInteger qi = new BigInteger(1, base64.decode(params.get("qi")));
 
-            KeySpec publicKeySpec = new RSAPublicKeySpec(n, e);
-            KeySpec privateKeySpec = new RSAPrivateCrtKeySpec(n, e, d, p, q, dp, dq, qi);
+        KeySpec publicKeySpec = new RSAPublicKeySpec(n, e);
+        KeySpec privateKeySpec = new RSAPrivateCrtKeySpec(n, e, d, p, q, dp, dq, qi);
 
-            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
-            PrivateKey privateKey = keyFactory.generatePrivate(privateKeySpec);
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
+        PrivateKey privateKey = keyFactory.generatePrivate(privateKeySpec);
 
-            return new KeyPair(publicKey, privateKey);
-        }
-        catch (Exception ex)
-        {
-            throw new RuntimeException(ex);
-        }
+        return new KeyPair(publicKey, privateKey);
     }
 
     private static KeyPair initECKeyPair(
-        Map<String, String> params)
+        Map<String, String> params) throws Exception
     {
-        try
-        {
-            Base64.Decoder base64 = Base64.getUrlDecoder();
+        Base64.Decoder base64 = Base64.getUrlDecoder();
 
-            String crv = params.get("crv");
-            BigInteger x = new BigInteger(1, base64.decode(params.get("x")));
-            BigInteger y = new BigInteger(1, base64.decode(params.get("y")));
-            BigInteger d = new BigInteger(1, base64.decode(params.get("d")));
+        String crv = params.get("crv");
+        BigInteger x = new BigInteger(1, base64.decode(params.get("x")));
+        BigInteger y = new BigInteger(1, base64.decode(params.get("y")));
+        BigInteger d = new BigInteger(1, base64.decode(params.get("d")));
 
-            AlgorithmParameters parameters = AlgorithmParameters.getInstance("EC");
-            parameters.init(new ECGenParameterSpec(String.format("NIST %s", crv)));
-            ECParameterSpec curve = parameters.getParameterSpec(ECParameterSpec.class);
+        AlgorithmParameters parameters = AlgorithmParameters.getInstance("EC");
+        parameters.init(new ECGenParameterSpec(String.format("NIST %s", crv)));
+        ECParameterSpec curve = parameters.getParameterSpec(ECParameterSpec.class);
 
-            KeySpec publicKeySpec = new ECPublicKeySpec(new ECPoint(x, y), curve);
-            KeySpec privateKeySpec = new ECPrivateKeySpec(d, curve);
+        KeySpec publicKeySpec = new ECPublicKeySpec(new ECPoint(x, y), curve);
+        KeySpec privateKeySpec = new ECPrivateKeySpec(d, curve);
 
-            KeyFactory keyFactory = KeyFactory.getInstance("EC");
-            PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
-            PrivateKey privateKey = keyFactory.generatePrivate(privateKeySpec);
+        KeyFactory keyFactory = KeyFactory.getInstance("EC");
+        PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
+        PrivateKey privateKey = keyFactory.generatePrivate(privateKeySpec);
 
-            return new KeyPair(publicKey, privateKey);
-        }
-        catch (Exception ex)
-        {
-            throw new RuntimeException(ex);
-        }
+        return new KeyPair(publicKey, privateKey);
     }
 
     private OAuthJwtKeys()

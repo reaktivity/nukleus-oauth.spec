@@ -63,97 +63,10 @@ public final class OAuthFunctions
         HELPER_FACTORIES = unmodifiableMap(helperFactories);
     }
 
-    // TODO: create OAuthRouteEx extension. maybe use for `iat`?
-    @Function
-    public static OAuthRouteExBuilder routeEx()
-    {
-        return new OAuthRouteExBuilder();
-    }
-
-    public static final class OAuthRouteExBuilder
-    {
-
-    }
-
     @Function
     public static OAuthResolveExBuilder resolveEx()
     {
         return new OAuthResolveExBuilder();
-    }
-
-
-    public static final class OAuthResolveExBuilder
-    {
-//        private final ResolveFW.Builder resolveRW;
-        private final OAuthResolveExFW.Builder resolveExRW;
-
-        private OAuthResolveExBuilder()
-        {
-//            MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[1024 * 8]);
-//            this.resolveRW = new ResolveFW.Builder().wrap(writeBuffer, 0, writeBuffer.capacity());
-            MutableDirectBuffer writeExBuffer = new UnsafeBuffer(new byte[1024 * 8]);
-            this.resolveExRW = new OAuthResolveExFW.Builder().wrap(writeExBuffer, 0, writeExBuffer.capacity());
-        }
-
-//        public OAuthResolveExBuilder correlationId(
-//            long id)
-//        {
-//            resolveRW.correlationId(id);
-//            return this;
-//        }
-//
-//        public OAuthResolveExBuilder nukleus(
-//            String nukleusName)
-//        {
-//            resolveRW.nukleus(nukleusName);
-//            return this;
-//        }
-//
-//        public OAuthResolveExBuilder realm(
-//            String realmName)
-//        {
-//            resolveRW.realm(realmName);
-//            return this;
-//        }
-//
-//        public OAuthResolveExBuilder roles(
-//            String... roleNames)
-//        {
-//            resolveRW.roles(b -> Arrays.asList(roleNames).forEach(s -> b.item(sb -> sb.set(s, UTF_8))));
-//            return this;
-//        }
-//
-//        public OAuthResolveExBuilder extension()
-//        {
-//            final OAuthResolveExFW resolveEx = resolveExRW.build();
-//            resolveRW.extension(resolveEx.buffer(), resolveEx.offset(), resolveEx.sizeof());
-//            return this;
-//        }
-
-        public OAuthResolveExBuilder issuer(
-            String issuerName)
-        {
-            resolveExRW.issuer(issuerName);
-            return this;
-        }
-
-        public OAuthResolveExBuilder audience(
-            String audienceName)
-        {
-            resolveExRW.issuer(audienceName);
-            return this;
-        }
-
-        public byte[] build()
-        {
-//            final ResolveFW resolve = resolveRW.build();
-//            final byte[] array = new byte[resolve.sizeof()];
-//            resolve.buffer().getBytes(resolve.offset(), array);
-            final OAuthResolveExFW resolveEx = resolveExRW.build();
-            final byte[] array = new byte[resolveEx.sizeof()];
-            resolveEx.buffer().getBytes(resolveEx.offset(), array);
-            return array;
-        }
     }
 
     @Function
@@ -162,6 +75,23 @@ public final class OAuthFunctions
     {
         Supplier<JwtHelper> helperFactory = HELPER_FACTORIES.get(kind);
         return helperFactory.get();
+    }
+
+    static JwtHelper jwt(
+        KeyPair pair,
+        String kind,
+        String algorithm)
+    {
+        Map<String, Supplier<JwtHelper>> helperFactories = new HashMap<>();
+        helperFactories.put(kind, () -> new JwtHelper(pair, kind, algorithm));
+        Supplier<JwtHelper> helperFactory = helperFactories.get(kind);
+        return helperFactory.get();
+    }
+
+    static byte[] decodeIntegrity(
+        byte[] integrity)
+    {
+        return JwtSigner.decodeDER(integrity);
     }
 
     public static final class JwtHelper
@@ -218,6 +148,39 @@ public final class OAuthFunctions
         }
     }
 
+    public static final class OAuthResolveExBuilder
+    {
+        private final OAuthResolveExFW.Builder resolveExRW;
+
+        private OAuthResolveExBuilder()
+        {
+            MutableDirectBuffer writeExBuffer = new UnsafeBuffer(new byte[1024 * 8]);
+            this.resolveExRW = new OAuthResolveExFW.Builder().wrap(writeExBuffer, 0, writeExBuffer.capacity());
+        }
+
+        public OAuthResolveExBuilder issuer(
+            String issuerName)
+        {
+            resolveExRW.issuer(issuerName);
+            return this;
+        }
+
+        public OAuthResolveExBuilder audience(
+            String audienceName)
+        {
+            resolveExRW.audience(audienceName);
+            return this;
+        }
+
+        public byte[] build()
+        {
+            final OAuthResolveExFW resolveEx = resolveExRW.build();
+            final byte[] array = new byte[resolveEx.sizeof()];
+            resolveEx.buffer().getBytes(resolveEx.offset(), array);
+            return array;
+        }
+    }
+
     private static final class JwtSigner
     {
         private static final Map<String, JwtSigner> SIGNERS = new ConcurrentHashMap<>();
@@ -248,7 +211,7 @@ public final class OAuthFunctions
             return decoder.apply(signature.sign());
         }
 
-        private static byte[] decodeDER(
+        static byte[] decodeDER(
             byte[] integrity)
         {
             final DERDecoder decoder = new DERDecoder();
@@ -262,7 +225,6 @@ public final class OAuthFunctions
 
             final int offsetR = r.length & 0x01;
             final int lengthR = r.length - offsetR;
-
             final int offsetS = s.length & 0x01;
             final int lengthS = s.length - offsetS;
 

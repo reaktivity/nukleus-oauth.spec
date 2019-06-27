@@ -22,11 +22,6 @@ scope oauth
             string issuer;
             string audience;
         }
-
-        struct OAuthRouteEx
-        {
-            int64 issuedAt;
-        }
     }
 
     scope stream

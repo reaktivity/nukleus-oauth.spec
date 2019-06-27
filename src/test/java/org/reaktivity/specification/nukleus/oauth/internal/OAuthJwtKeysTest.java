@@ -24,10 +24,15 @@ import java.security.Signature;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public final class OAuthJwtKeysTest
 {
+    @Rule
+    public final ExpectedException thrown = ExpectedException.none();
+
     @Test
     public void shouldVerifyRSAKeyPair() throws Exception
     {
