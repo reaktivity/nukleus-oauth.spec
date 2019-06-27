@@ -19,6 +19,7 @@ import java.math.BigInteger;
 import java.security.AlgorithmParameters;
 import java.security.KeyFactory;
 import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.ECGenParameterSpec;
@@ -26,6 +27,8 @@ import java.security.spec.ECParameterSpec;
 import java.security.spec.ECPoint;
 import java.security.spec.ECPrivateKeySpec;
 import java.security.spec.ECPublicKeySpec;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.InvalidParameterSpecException;
 import java.security.spec.KeySpec;
 import java.security.spec.RSAPrivateCrtKeySpec;
 import java.security.spec.RSAPublicKeySpec;
@@ -80,23 +83,19 @@ public final class OAuthJwtKeys
         es256.put("y", "x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0");
         es256.put("d", "jpsQnnGQmL-YBIffH1136cspYG6-0iY7X1fCE9-E9LI");
 
-        KeyPair rsKeyPair = null;
-        KeyPair esKeyPair = null;
         try
         {
-            rsKeyPair = initRSAKeyPair(rsa256);
-            esKeyPair = initECKeyPair(es256);
+            RFC7515_RS256 = initRSAKeyPair(rsa256);
+            RFC7515_ES256 = initECKeyPair(es256);
         }
-        catch(Exception e)
+        catch(Exception ex)
         {
-            // Utility
+            throw new IllegalStateException(ex);
         }
-        RFC7515_RS256 = rsKeyPair;
-        RFC7515_ES256 = esKeyPair;
     }
 
     private static KeyPair initRSAKeyPair(
-        Map<String, String> params) throws Exception
+        Map<String, String> params) throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         Base64.Decoder base64 = Base64.getUrlDecoder();
 
@@ -121,7 +120,7 @@ public final class OAuthJwtKeys
     }
 
     private static KeyPair initECKeyPair(
-        Map<String, String> params) throws Exception
+        Map<String, String> params) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidParameterSpecException
     {
         Base64.Decoder base64 = Base64.getUrlDecoder();
 

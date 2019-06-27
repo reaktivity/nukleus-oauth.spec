@@ -33,9 +33,9 @@ read [0x06] "scope1"
 read [0x06] "scope2"
 read [0x06] "scope3"
 read ${oauth:resolveEx()
-             .issuer("test issuer")
-             .audience("test audience")
-             .build()}
+            .issuer("test issuer")
+            .audience("test audience")
+            .build()}
 
 write 0x40000011
 write ${correlationIdR05N}

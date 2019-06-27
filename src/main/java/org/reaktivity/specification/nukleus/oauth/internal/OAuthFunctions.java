@@ -82,10 +82,7 @@ public final class OAuthFunctions
         String kind,
         String algorithm)
     {
-        Map<String, Supplier<JwtHelper>> helperFactories = new HashMap<>();
-        helperFactories.put(kind, () -> new JwtHelper(pair, kind, algorithm));
-        Supplier<JwtHelper> helperFactory = helperFactories.get(kind);
-        return helperFactory.get();
+        return new JwtHelper(pair, kind, algorithm);
     }
 
     static byte[] decodeIntegrity(

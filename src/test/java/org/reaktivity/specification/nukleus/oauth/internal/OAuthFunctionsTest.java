@@ -15,10 +15,6 @@
  */
 package org.reaktivity.specification.nukleus.oauth.internal;
 
-import static org.hamcrest.Matchers.either;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.kaazing.k3po.lang.internal.el.ExpressionFactoryUtils.newExpressionFactory;
@@ -31,22 +27,16 @@ import javax.el.ValueExpression;
 import org.agrona.DirectBuffer;
 import org.agrona.concurrent.UnsafeBuffer;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.kaazing.k3po.lang.internal.el.ExpressionContext;
 import org.reaktivity.specification.oauth.internal.types.control.OAuthResolveExFW;
 
 import java.security.GeneralSecurityException;
-import java.security.NoSuchAlgorithmException;
 
 public final class OAuthFunctionsTest
 {
     private ExpressionFactory factory;
     private ELContext ctx;
-
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void setUp() throws Exception
@@ -81,20 +71,16 @@ public final class OAuthFunctionsTest
         assertNotNull(token);
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void shouldFailSign() throws GeneralSecurityException
     {
-        thrown.expect(is(instanceOf(RuntimeException.class)));
-        thrown.expectCause(either(nullValue(Exception.class)).or(is(instanceOf(NoSuchAlgorithmException.class))));
-
         OAuthFunctions.jwt(RFC7515_RS256, "RS256", "wrong alg test")
                       .sign();
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void shouldFailBadRIntegrity()
     {
-        thrown.expect(is(instanceOf(AssertionError.class)));
         OAuthFunctions.decodeIntegrity(new byte[]{
                 48, 69, 2, 33,
                 // r
@@ -108,10 +94,9 @@ public final class OAuthFunctionsTest
         });
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void shouldFailBadSIntegrity()
     {
-        thrown.expect(is(instanceOf(AssertionError.class)));
         OAuthFunctions.decodeIntegrity(new byte[]{
                 48, 69, 2, 32,
                 // r

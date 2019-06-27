@@ -32,9 +32,9 @@ read ${core:string("oauth")}
 read [0x05] "RS256"
 read 0
 read ${oauth:resolveEx()
-             .issuer("test issuer")
-             .audience("test audience")
-             .build()}
+            .issuer("test issuer")
+            .audience("test audience")
+            .build()}
 
 write 0x40000011
 write ${correlationIdR05N}
