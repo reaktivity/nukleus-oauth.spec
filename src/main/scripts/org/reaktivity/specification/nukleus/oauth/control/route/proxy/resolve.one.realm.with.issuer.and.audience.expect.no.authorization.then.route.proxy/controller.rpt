@@ -32,10 +32,7 @@ write 0x00000011
 write ${controlR05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x05] "RS256"
-write 21
-write [0x06] "scope1"
-write [0x06] "scope2"
-write [0x06] "scope3"
+write 0
 write ${oauth:resolveEx()
              .issuer("test issuer")
              .audience("testAudience")

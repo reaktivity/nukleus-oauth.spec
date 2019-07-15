@@ -33,7 +33,7 @@ write [0x05] "RS256"
 write 0
 write ${oauth:resolveEx()
              .issuer("test issuer")
-             .audience("test audience")
+             .audience("testAudience")
              .build()}
 write flush
 

@@ -38,7 +38,7 @@ write [0x06] "scope2"
 write [0x06] "scope3"
 write ${oauth:resolveEx()
              .issuer(null)
-             .audience("test audience")
+             .audience("testAudience")
              .build()}
 write flush
 
