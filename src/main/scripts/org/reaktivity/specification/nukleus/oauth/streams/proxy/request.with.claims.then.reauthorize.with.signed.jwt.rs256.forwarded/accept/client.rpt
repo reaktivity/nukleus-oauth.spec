@@ -14,8 +14,15 @@
 # under the License.
 #
 
-property oauthToken ${oauth:jwt("RS256")
-                           .claim("aud", "testAudience")
+property oldOauthToken ${oauth:jwt("RS256")
+                           .claim("iss", "test issuer")
+                           .claim("aud", "test audience")
+                           .claim("scope", "scope1 scope2 scope3")
+                           .sign()}
+
+property freshOauthToken ${oauth:jwt("RS256")
+                           .claim("iss", "test issuer")
+                           .claim("aud", "test audience")
                            .claim("scope", "scope1 scope2 scope3")
                            .sign()}
 
@@ -30,7 +37,7 @@ write nukleus:begin.ext ${http:beginEx()
                               .header(":method", "GET")
                               .header(":path", "/path")
                               .header(":authority", "localhost:8080")
-                              .header("authorization", "Bearer ".concat(oauthToken))
+                              .header("authorization", "Bearer ".concat(oldOauthToken))
                               .build()}
 connected
 
