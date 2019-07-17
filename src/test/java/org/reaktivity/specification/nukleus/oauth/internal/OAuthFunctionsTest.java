@@ -58,26 +58,6 @@ public final class OAuthFunctionsTest
         assertNotNull(token);
     }
 
-    @Test
-    public void shouldSignJWTwithES256() throws GeneralSecurityException
-    {
-        String expressionText = OAuthFunctions.jwt("ES256")
-                                              .expiresInSeconds(5)
-                                              .claim("iss", "test issuer")
-                                              .sign();
-        ValueExpression expression = factory.createValueExpression(ctx, expressionText, String.class);
-        String token = (String) expression.getValue(ctx);
-
-        assertNotNull(token);
-    }
-
-    @Test(expected = GeneralSecurityException.class)
-    public void shouldFailSign() throws GeneralSecurityException
-    {
-        OAuthFunctions.jwt(RFC7515_RS256, "RS256", "wrong alg test")
-                      .sign();
-    }
-
     @Test(expected = AssertionError.class)
     public void shouldFailBadRIntegrity()
     {
@@ -107,6 +87,26 @@ public final class OAuthFunctionsTest
             127, -65, -40, -51, 77, -7, 90, -73, -34, -68, 75, -115, -117, 19, -13, 86, -42, -67, -41, 79, -117, 2, -14, 126,
             -66, 50, 121, 28, 79, 110, 8, 50, -36
         });
+    }
+
+    @Test
+    public void shouldSignJWTwithES256() throws GeneralSecurityException
+    {
+        String expressionText = OAuthFunctions.jwt("ES256")
+                                              .expiresInSeconds(5)
+                                              .claim("iss", "test issuer")
+                                              .sign();
+        ValueExpression expression = factory.createValueExpression(ctx, expressionText, String.class);
+        String token = (String) expression.getValue(ctx);
+
+        assertNotNull(token);
+    }
+
+    @Test(expected = GeneralSecurityException.class)
+    public void shouldFailSign() throws GeneralSecurityException
+    {
+        OAuthFunctions.jwt(RFC7515_RS256, "RS256", "wrong alg test")
+                      .sign();
     }
 
     @Test

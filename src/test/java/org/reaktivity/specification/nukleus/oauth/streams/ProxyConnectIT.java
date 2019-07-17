@@ -232,4 +232,16 @@ public class ProxyConnectIT
         k3po.finish();
     }
 
+    @Test
+    @Specification({
+        "${streams}/reauthorize.inflight.request.same.privileges.update.expiration/connect/client",
+        "${streams}/reauthorize.inflight.request.same.privileges.update.expiration/connect/server"
+        })
+    public void shouldReauthorizeWithNewExpiration() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
 }
