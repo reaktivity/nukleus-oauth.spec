@@ -63,10 +63,9 @@ read 0x00000011
 read (long:correlationIdR052N)
 read ${core:string("oauth")}
 read [0x05] "RS256"
-read 21
+read 14
 read [0x06] "scope1"
 read [0x06] "scope2"
-read [0x06] "scope3"
 read ${oauth:resolveEx()
             .issuer("test issuer")
             .audience("testAudience")
@@ -74,7 +73,7 @@ read ${oauth:resolveEx()
 
 write 0x40000011
 write ${correlationIdR052N}
-write 0x0001_000000000007L
+write 0x0001_000000000005L
 write flush
 
 read 0x00000001

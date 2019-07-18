@@ -26,7 +26,7 @@ read nukleus:begin.ext ${http:beginEx()
                              .header(":method", "GET")
                              .header(":path", "/path")
                              .header(":authority", "localhost:8080")
-                             .header("authorization", "Bearer ".concat(oauthTokenOld))
+                             .header("authorization", "Bearer ".concat(oauthTokenExpiringSoon))
                              .build()}
 connected
 
@@ -37,6 +37,8 @@ write nukleus:begin.ext ${http:beginEx()
                               .header(":status", "200")
                               .header("content-length", "11")
                               .build()}
+write flush
+write await TOKEN_EXPIRATION
 write "hello world"
 
 write close
@@ -53,7 +55,7 @@ read nukleus:begin.ext ${http:beginEx()
                              .header(":method", "GET")
                              .header(":path", "/path")
                              .header(":authority", "localhost:8080")
-                             .header("authorization", "Bearer ".concat(oauthTokenFresh))
+                             .header("authorization", "Bearer ".concat(oauthTokenExpiringLater))
                              .build()}
 connected
 

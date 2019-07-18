@@ -14,14 +14,14 @@
 # under the License.
 #
 
-property oauthTokenOld ${oauth:jwt("RS256")
+property oauthTokenExpiringSoon ${oauth:jwt("RS256")
                            .claim("iss", "test issuer")
                            .claim("aud", "testAudience")
                            .claim("scope", "scope1 scope2 scope3")
                            .expiresInSeconds(10)
                            .sign()}
 
-property oauthTokenFresh ${oauth:jwt("RS256")
+property oauthTokenExpiringLater ${oauth:jwt("RS256")
                            .claim("iss", "test issuer")
                            .claim("aud", "testAudience")
                            .claim("scope", "scope1 scope2 scope3")
@@ -40,7 +40,7 @@ write nukleus:begin.ext ${http:beginEx()
                               .header(":method", "GET")
                               .header(":path", "/path")
                               .header(":authority", "localhost:8080")
-                              .header("authorization", "Bearer ".concat(oauthTokenOld))
+                              .header("authorization", "Bearer ".concat(oauthTokenExpiringSoon))
                               .build()}
 
 connected
@@ -52,6 +52,7 @@ read nukleus:begin.ext ${http:beginEx()
                              .header(":status", "200")
                              .header("content-length", "11")
                              .build()}
+read await TOKEN_EXPIRATION
 read "hello world"
 
 read closed
@@ -68,7 +69,7 @@ write nukleus:begin.ext ${http:beginEx()
                               .header(":method", "GET")
                               .header(":path", "/path")
                               .header(":authority", "localhost:8080")
-                              .header("authorization", "Bearer ".concat(oauthTokenFresh))
+                              .header("authorization", "Bearer ".concat(oauthTokenExpiringLater))
                               .build()}
 
 connected

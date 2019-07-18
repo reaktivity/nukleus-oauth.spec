@@ -119,10 +119,34 @@ public final class OAuthFunctions
 
         public JwtHelper claim(
             String name,
-            Object value)
+            Object... values)
         {
-            String format = value instanceof String ? "\"%s\":\"%s\"" : "\"%s\":%d";
-            this.claims.add(String.format(format, name, value));
+            if (values != null)
+            {
+                if (values.length == 1)
+                {
+                    Object value = values[0];
+                    String format = value instanceof String ? "\"%s\":\"%s\"" : "\"%s\":%d";
+                    this.claims.add(String.format(format, name, value));
+                }
+                else
+                {
+                    StringBuilder claim = new StringBuilder();
+                    claim.append(String.format("\"%s\":[", name));
+                    for (int i=0; i < values.length; i++)
+                    {
+                        if (i > 0)
+                        {
+                            claim.append(',');
+                        }
+                        Object value = values[i];
+                        String format = value instanceof String ? "\"%s\"" : ":%d";
+                        claim.append(String.format(format, value));
+                    }
+                    claim.append(']');
+                    this.claims.add(claim.toString());
+                }
+            }
             return this;
         }
 

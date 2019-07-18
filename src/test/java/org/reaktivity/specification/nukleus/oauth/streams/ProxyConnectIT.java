@@ -241,6 +241,7 @@ public class ProxyConnectIT
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.notifyBarrier("TOKEN_EXPIRATION");
         k3po.finish();
     }
 
