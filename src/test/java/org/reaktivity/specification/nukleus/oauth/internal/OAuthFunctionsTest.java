@@ -51,6 +51,7 @@ public final class OAuthFunctionsTest
         String expressionText = OAuthFunctions.jwt("RS256")
                                               .expiresInSeconds(5)
                                               .claim("iss", "test issuer")
+                                              .claim("aud", "test audience1", "test audience2")
                                               .sign();
         ValueExpression expression = factory.createValueExpression(ctx, expressionText, String.class);
         String token = (String) expression.getValue(ctx);
@@ -64,6 +65,7 @@ public final class OAuthFunctionsTest
         String expressionText = OAuthFunctions.jwt("ES256")
                                               .expiresInSeconds(5)
                                               .claim("iss", "test issuer")
+                                              .claim("aud", "test audience1", "test audience2")
                                               .sign();
         ValueExpression expression = factory.createValueExpression(ctx, expressionText, String.class);
         String token = (String) expression.getValue(ctx);
