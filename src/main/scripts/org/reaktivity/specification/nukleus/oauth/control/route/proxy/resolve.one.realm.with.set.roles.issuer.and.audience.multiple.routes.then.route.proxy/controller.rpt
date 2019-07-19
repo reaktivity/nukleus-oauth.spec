@@ -81,7 +81,7 @@ write ${controlRG010101C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x02]
 write 0x0000_000000000000L
-write ${core:string("oauth#1")}
+write ${core:string("oauth#0")}
 write ${core:string("target#1")}
 write flush
 

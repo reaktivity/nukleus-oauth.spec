@@ -81,12 +81,12 @@ read (long:correlationIdRG010101N)
 read ${core:string("oauth")}
 read [0x02]
 read [0..8] # authorization
-read ${core:string("oauth#1")}
+read ${core:string("oauth#0")}
 read ${core:string("target#1")}
 
 write 0x40000001
 write ${correlationIdRG010101N}
-write ${nukleus:newClientRouteId("oauth#1", "target#1")}
+write ${nukleus:newClientRouteId("oauth#0", "target#1")}
 write flush
 
 close
