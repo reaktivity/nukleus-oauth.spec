@@ -55,7 +55,7 @@ read "hello world"
 read closed
 
 connect await ROUTED_PROXY
-        "nukleus://streams/oauth#1"
+        "nukleus://streams/oauth#0"
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 
