@@ -17,7 +17,7 @@
 property oauthTokenExpiringSoon ${oauth:jwt("RS256")
                            .claim("iss", "test issuer")
                            .claim("aud", "testAudience")
-                           .claim("scope", "scope1 scope2 scope3")
+                           .claim("scope", "scope1 scope2")
                            .expiresInSeconds(10)
                            .sign()}
 
@@ -29,8 +29,8 @@ property oauthTokenExpiringLater ${oauth:jwt("RS256")
                            .sign()}
 
 connect await ROUTED_PROXY
-        "nukleus://streams/target#0"
-        option nukleus:authorization 0x0001_000000000007L
+        "nukleus://streams/target#1"
+        option nukleus:authorization 0x0001_000000000003L
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 
