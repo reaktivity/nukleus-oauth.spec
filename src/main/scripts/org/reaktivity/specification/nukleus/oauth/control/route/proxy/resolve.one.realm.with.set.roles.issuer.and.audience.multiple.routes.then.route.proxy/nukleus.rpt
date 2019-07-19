@@ -73,7 +73,7 @@ read ${oauth:resolveEx()
 
 write 0x40000011
 write ${correlationIdR052N}
-write 0x0001_000000000005L
+write 0x0001_000000000003L
 write flush
 
 read 0x00000001
