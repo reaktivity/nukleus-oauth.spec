@@ -66,10 +66,22 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
-        "${streams}/authorize.then.abort.expiring.response/accept/client",
-        "${streams}/authorize.then.abort.expiring.response/accept/server"
+        "${streams}/authorize.then.reset.expiring.response/accept/client",
+        "${streams}/authorize.then.reset.expiring.response/accept/server"
         })
-    public void shouldAuthorizeThenAbortExpiringResponse() throws Exception
+    public void shouldAuthorizeThenResetExpiringResponse() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/authorize.then.reset.expiring.response.early/accept/client",
+        "${streams}/authorize.then.reset.expiring.response.early/accept/server"
+        })
+    public void shouldAuthorizeThenResetExpiringResponseEarly() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -106,6 +118,18 @@ public class ProxyAcceptIT
         "${streams}/proxy.connect.is.reset/accept/server"
         })
     public void shouldResetAcceptWhenConnectIsReset() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/proxy.accept.reply.is.reset.early/accept/client",
+        "${streams}/proxy.accept.reply.is.reset.early/accept/server"
+        })
+    public void shouldResetClientReplyEarlyWhenAcceptReplyIsResetEarly() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
