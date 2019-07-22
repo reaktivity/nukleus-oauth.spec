@@ -18,6 +18,7 @@ property oauthTokenExpiringSoon ${oauth:jwt("RS256")
                            .claim("iss", "test issuer")
                            .claim("aud", "testAudience")
                            .claim("scope", "scope1 scope2 scope3")
+                           .claim("sub", "test subject")
                            .expiresInSeconds(10)
                            .sign()}
 
@@ -25,6 +26,7 @@ property oauthTokenExpiringEarlier ${oauth:jwt("RS256")
                            .claim("iss", "test issuer")
                            .claim("aud", "testAudience")
                            .claim("scope", "scope1 scope2 scope3")
+                           .claim("sub", "test subject")
                            .expiresInSeconds(5)
                            .sign()}
 
@@ -74,6 +76,4 @@ read nukleus:begin.ext ${http:beginEx()
                              .header("content-length", "11")
                              .build()}
 
-read "hello world"
-
-read closed
+read aborted

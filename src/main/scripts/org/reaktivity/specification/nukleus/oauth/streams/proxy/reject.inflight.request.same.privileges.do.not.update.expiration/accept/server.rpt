@@ -59,6 +59,5 @@ write nukleus:begin.ext ${http:beginEx()
                               .header(":status", "200")
                               .header("content-length", "11")
                               .build()}
-write "hello world"
-
-write close
+write flush
+write abort
