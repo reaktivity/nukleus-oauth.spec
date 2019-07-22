@@ -54,8 +54,8 @@ public class ProxyConnectIT
 
     @Test
     @Specification({
-        "${streams}/authorize.then.abort.expiring.request/accept/client",
-        "${streams}/authorize.then.abort.expiring.request/accept/server"
+        "${streams}/authorize.then.abort.expiring.request/connect/client",
+        "${streams}/authorize.then.abort.expiring.request/connect/server"
         })
     public void shouldAuthorizeThenAbortExpiringRequest() throws Exception
     {
@@ -66,10 +66,22 @@ public class ProxyConnectIT
 
     @Test
     @Specification({
-        "${streams}/authorize.then.abort.expiring.response/accept/client",
-        "${streams}/authorize.then.abort.expiring.response/accept/server"
+        "${streams}/authorize.then.reset.expiring.response/connect/client",
+        "${streams}/authorize.then.reset.expiring.response/connect/server"
         })
-    public void shouldAuthorizeThenAbortExpiringResponse() throws Exception
+    public void shouldAuthorizeThenResetExpiringResponse() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/authorize.then.reset.expiring.response.early/connect/client",
+        "${streams}/authorize.then.reset.expiring.response.early/connect/server"
+        })
+    public void shouldAuthorizeThenResetExpiringResponseEarly() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -102,8 +114,20 @@ public class ProxyConnectIT
 
     @Test
     @Specification({
-        "${streams}/proxy.connect.is.reset/accept/client",
-        "${streams}/proxy.connect.is.reset/accept/server"
+        "${streams}/proxy.accept.reply.is.reset.early/connect/client",
+        "${streams}/proxy.accept.reply.is.reset.early/connect/server"
+        })
+    public void shouldResetClientReplyEarlyWhenAcceptReplyIsResetEarly() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/proxy.connect.is.reset/connect/client",
+        "${streams}/proxy.connect.is.reset/connect/server"
         })
     public void shouldResetAcceptWhenConnectIsReset() throws Exception
     {
