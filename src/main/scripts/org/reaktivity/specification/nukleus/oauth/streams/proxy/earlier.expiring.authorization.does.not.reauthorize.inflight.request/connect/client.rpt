@@ -15,23 +15,24 @@
 #
 
 property oauthTokenExpiringSoon ${oauth:jwt("RS256")
-                           .claim("iss", "test issuer")
-                           .claim("aud", "testAudience")
-                           .claim("scope", "scope1 scope2 scope3")
-                           .claim("sub", "test subject")
-                           .expiresInSeconds(10)
-                           .sign()}
+                                       .claim("iss", "test issuer")
+                                       .claim("aud", "testAudience")
+                                       .claim("scope", "scope1 scope2 scope3")
+                                       .claim("sub", "test subject")
+                                       .expiresInSeconds(10)
+                                       .sign()}
 
 property oauthTokenExpiringEarlier ${oauth:jwt("RS256")
-                           .claim("iss", "test issuer")
-                           .claim("aud", "testAudience")
-                           .claim("scope", "scope1 scope2 scope3")
-                           .claim("sub", "test subject")
-                           .expiresInSeconds(5)
-                           .sign()}
+                                          .claim("iss", "test issuer")
+                                          .claim("aud", "testAudience")
+                                          .claim("scope", "scope1 scope2 scope3")
+                                          .claim("sub", "test subject")
+                                          .expiresInSeconds(5)
+                                          .sign()}
 
 connect await ROUTED_PROXY
-        "nukleus://streams/oauth#0"
+        "nukleus://streams/target#0"
+        option nukleus:authorization 0x0001_000000000007L
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 
@@ -43,19 +44,22 @@ write nukleus:begin.ext ${http:beginEx()
                               .header(":authority", "localhost:8080")
                               .header("authorization", "Bearer ".concat(oauthTokenExpiringSoon))
                               .build()}
+
 connected
 
 write close
+
 read nukleus:begin.ext ${http:beginEx()
                              .typeId(nukleus:id("http"))
                              .header(":status", "200")
                              .header("content-length", "11")
                              .build()}
 
-read aborted
+read abort
 
 connect await ROUTED_PROXY
-        "nukleus://streams/oauth#0"
+        "nukleus://streams/target#1"
+        option nukleus:authorization 0x0001_000000000007L
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 
@@ -67,13 +71,14 @@ write nukleus:begin.ext ${http:beginEx()
                               .header(":authority", "localhost:8080")
                               .header("authorization", "Bearer ".concat(oauthTokenExpiringEarlier))
                               .build()}
+
 connected
 
 write close
+
 read nukleus:begin.ext ${http:beginEx()
                              .typeId(nukleus:id("http"))
                              .header(":status", "200")
                              .header("content-length", "11")
                              .build()}
-
-read aborted
+read abort

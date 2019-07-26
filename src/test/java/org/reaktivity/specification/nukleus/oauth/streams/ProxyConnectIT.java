@@ -258,8 +258,8 @@ public class ProxyConnectIT
 
     @Test
     @Specification({
-        "${streams}/reauthorize.inflight.request.same.privileges.update.expiration/connect/client",
-        "${streams}/reauthorize.inflight.request.same.privileges.update.expiration/connect/server"
+        "${streams}/later.expiring.authorization.reauthorizes.inflight.request/connect/client",
+        "${streams}/later.expiring.authorization.reauthorizes.inflight.request/connect/server"
         })
     public void shouldReauthorizeWithNewExpiration() throws Exception
     {

@@ -15,20 +15,20 @@
 #
 
 property oauthTokenExpiringSoon ${oauth:jwt("RS256")
-                           .claim("iss", "test issuer")
-                           .claim("aud", "testAudience")
-                           .claim("scope", "scope1 scope2 scope3")
-                           .claim("sub", "test subject")
-                           .expiresInSeconds(10)
-                           .sign()}
+                                       .claim("iss", "test issuer")
+                                       .claim("aud", "testAudience")
+                                       .claim("scope", "scope1 scope2 scope3")
+                                       .claim("sub", "test subject")
+                                       .expiresInSeconds(10)
+                                       .sign()}
 
-property oauthTokenExpiringLater ${oauth:jwt("RS256")
-                           .claim("iss", "test issuer")
-                           .claim("aud", "testAudience")
-                           .claim("scope", "scope1 scope2")
-                           .claim("sub", "test subject")
-                           .expiresInSeconds(50)
-                           .sign()}
+property oauthTokenExpiringEarlier ${oauth:jwt("RS256")
+                                          .claim("iss", "test issuer")
+                                          .claim("aud", "testAudience")
+                                          .claim("scope", "scope1 scope2 scope3")
+                                          .claim("sub", "test subject")
+                                          .expiresInSeconds(5)
+                                          .sign()}
 
 connect await ROUTED_PROXY
         "nukleus://streams/oauth#0"
@@ -65,7 +65,7 @@ write nukleus:begin.ext ${http:beginEx()
                               .header(":method", "GET")
                               .header(":path", "/path")
                               .header(":authority", "localhost:8080")
-                              .header("authorization", "Bearer ".concat(oauthTokenExpiringLater))
+                              .header("authorization", "Bearer ".concat(oauthTokenExpiringEarlier))
                               .build()}
 connected
 
@@ -76,6 +76,4 @@ read nukleus:begin.ext ${http:beginEx()
                              .header("content-length", "11")
                              .build()}
 
-read "hello world"
-
-read closed
+read aborted
