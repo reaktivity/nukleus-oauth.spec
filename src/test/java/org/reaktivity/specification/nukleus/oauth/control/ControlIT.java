@@ -153,4 +153,13 @@ public class ControlIT
         k3po.finish();
     }
 
+//    @Test
+//    @Specification({
+//        "route/proxy/sse.oauth/nukleus",
+//        "route/proxy/sse.oauth/controller"
+//    })
+//    public void shouldRouteSseToOAuth() throws Exception
+//    {
+//        k3po.finish();
+//    }
 }
