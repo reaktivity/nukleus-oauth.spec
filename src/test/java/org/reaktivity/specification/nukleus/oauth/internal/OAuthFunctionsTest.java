@@ -30,9 +30,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.kaazing.k3po.lang.internal.el.ExpressionContext;
 import org.reaktivity.specification.oauth.internal.types.control.OAuthResolveExFW;
-import org.reaktivity.specification.oauth.internal.types.stream.OAuthBeginExFW;
-import org.reaktivity.specification.oauth.internal.types.stream.OAuthWindowExFW;
-import org.reaktivity.specification.oauth.internal.types.stream.OAuthSignalExFW;
 
 import java.security.GeneralSecurityException;
 
@@ -132,42 +129,5 @@ public final class OAuthFunctionsTest
 
         assertEquals("test issuer", resolveEx.issuer().asString());
         assertEquals("testAudience", resolveEx.audience().asString());
-    }
-
-    @Test
-    public void shouldGenerateBeginExtension()
-    {
-        byte[] build = OAuthFunctions.beginEx()
-                                     .supportsChallenge(1)
-                                     .build();
-        DirectBuffer buffer = new UnsafeBuffer(build);
-        OAuthBeginExFW beginEx = new OAuthBeginExFW().wrap(buffer, 0, buffer.capacity());
-
-        assertEquals(1, beginEx.supportsChallenge());
-    }
-
-    @Test
-    public void shouldGenerateWindowExtension()
-    {
-        byte[] build = OAuthFunctions.windowEx()
-                                     .supportsChallenge(1)
-                                     .build();
-        DirectBuffer buffer = new UnsafeBuffer(build);
-        OAuthWindowExFW windowEx = new OAuthWindowExFW().wrap(buffer, 0, buffer.capacity());
-
-        assertEquals(1, windowEx.supportsChallenge());
-    }
-
-    @Test
-    public void shouldGenerateSignalExtension()
-    {
-        byte[] build = OAuthFunctions.signalEx()
-                                     .challenge("{ \":method\":\"post\", \"headers\": { \"correlation\": \"<base64>\" } }")
-                                     .build();
-        DirectBuffer buffer = new UnsafeBuffer(build);
-        OAuthSignalExFW signalEx = new OAuthSignalExFW().wrap(buffer, 0, buffer.capacity());
-
-        assertEquals("{ \":method\":\"post\", \"headers\": { \"correlation\": \"<base64>\" } }",
-                signalEx.challenge().asString());
     }
 }

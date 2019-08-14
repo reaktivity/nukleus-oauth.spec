@@ -26,19 +26,5 @@ scope oauth
 
     scope stream
     {
-        struct OAuthBeginEx
-        {
-            uint8 supportsChallenge;
-        }
-
-        struct OAuthWindowEx
-        {
-            uint8 supportsChallenge;
-        }
-
-        struct OAuthSignalEx
-        {
-            string challenge;
-        }
     }
 }
