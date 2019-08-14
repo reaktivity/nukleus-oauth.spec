@@ -46,6 +46,9 @@ import org.agrona.concurrent.UnsafeBuffer;
 import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
 import org.reaktivity.specification.oauth.internal.types.control.OAuthResolveExFW;
+import org.reaktivity.specification.oauth.internal.types.stream.OAuthBeginExFW;
+import org.reaktivity.specification.oauth.internal.types.stream.OAuthSignalExFW;
+import org.reaktivity.specification.oauth.internal.types.stream.OAuthWindowExFW;
 
 import com.hierynomus.asn1.encodingrules.der.DERDecoder;
 import com.hierynomus.asn1.types.ASN1Tag;
@@ -68,6 +71,24 @@ public final class OAuthFunctions
     public static OAuthResolveExBuilder resolveEx()
     {
         return new OAuthResolveExBuilder();
+    }
+
+    @Function
+    public static OAuthBeginExBuilder beginEx()
+    {
+        return new OAuthBeginExBuilder();
+    }
+
+    @Function
+    public static OAuthWindowExBuilder windowEx()
+    {
+        return new OAuthWindowExBuilder();
+    }
+
+    @Function
+    public static OAuthSignalExBuilder signalEx()
+    {
+        return new OAuthSignalExBuilder();
     }
 
     @Function
@@ -199,6 +220,84 @@ public final class OAuthFunctions
             final OAuthResolveExFW resolveEx = resolveExRW.build();
             final byte[] array = new byte[resolveEx.sizeof()];
             resolveEx.buffer().getBytes(resolveEx.offset(), array);
+            return array;
+        }
+    }
+
+    public static final class OAuthBeginExBuilder
+    {
+        private final OAuthBeginExFW.Builder beginExRW;
+
+        private OAuthBeginExBuilder()
+        {
+            MutableDirectBuffer writeExBuffer = new UnsafeBuffer(new byte[1024 * 8]);
+            this.beginExRW = new OAuthBeginExFW.Builder().wrap(writeExBuffer, 0, writeExBuffer.capacity());
+        }
+
+        public OAuthBeginExBuilder supportsChallenge(
+            int supportsChallenge)
+        {
+            beginExRW.supportsChallenge(supportsChallenge);
+            return this;
+        }
+
+        public byte[] build()
+        {
+            final OAuthBeginExFW beginEx = beginExRW.build();
+            final byte[] array = new byte[beginEx.sizeof()];
+            beginEx.buffer().getBytes(beginEx.offset(), array);
+            return array;
+        }
+    }
+
+    public static final class OAuthWindowExBuilder
+    {
+        private final OAuthWindowExFW.Builder windowExRW;
+
+        private OAuthWindowExBuilder()
+        {
+            MutableDirectBuffer writeExBuffer = new UnsafeBuffer(new byte[1024 * 8]);
+            this.windowExRW = new OAuthWindowExFW.Builder().wrap(writeExBuffer, 0, writeExBuffer.capacity());
+        }
+
+        public OAuthWindowExBuilder supportsChallenge(
+            int supportsChallenge)
+        {
+            windowExRW.supportsChallenge(supportsChallenge);
+            return this;
+        }
+
+        public byte[] build()
+        {
+            final OAuthWindowExFW windowEx = windowExRW.build();
+            final byte[] array = new byte[windowEx.sizeof()];
+            windowEx.buffer().getBytes(windowEx.offset(), array);
+            return array;
+        }
+    }
+
+    public static final class OAuthSignalExBuilder
+    {
+        private final OAuthSignalExFW.Builder signalExRW;
+
+        private OAuthSignalExBuilder()
+        {
+            MutableDirectBuffer writeExBuffer = new UnsafeBuffer(new byte[1024 * 8]);
+            this.signalExRW = new OAuthSignalExFW.Builder().wrap(writeExBuffer, 0, writeExBuffer.capacity());
+        }
+
+        public OAuthSignalExBuilder challenge(
+            String challenge)
+        {
+            signalExRW.challenge(challenge);
+            return this;
+        }
+
+        public byte[] build()
+        {
+            final OAuthSignalExFW signalEx = signalExRW.build();
+            final byte[] array = new byte[signalEx.sizeof()];
+            signalEx.buffer().getBytes(signalEx.offset(), array);
             return array;
         }
     }

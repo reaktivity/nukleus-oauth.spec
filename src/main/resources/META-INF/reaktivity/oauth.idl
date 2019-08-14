@@ -23,4 +23,22 @@ scope oauth
             string audience;
         }
     }
+
+    scope stream
+    {
+        struct OAuthBeginEx
+        {
+            uint8 supportsChallenge;
+        }
+
+        struct OAuthWindowEx
+        {
+            uint8 supportsChallenge;
+        }
+
+        struct OAuthSignalEx
+        {
+            string challenge;
+        }
+    }
 }
