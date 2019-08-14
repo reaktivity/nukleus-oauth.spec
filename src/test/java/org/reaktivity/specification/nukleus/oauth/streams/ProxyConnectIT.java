@@ -256,4 +256,17 @@ public class ProxyConnectIT
         k3po.finish();
     }
 
+    @Test
+    @Specification({
+        "${streams}/later.expiring.authorization.reauthorizes.inflight.request/connect/client",
+        "${streams}/later.expiring.authorization.reauthorizes.inflight.request/connect/server"
+        })
+    public void shouldReauthorizeWithNewExpiration() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.notifyBarrier("TOKEN_EXPIRATION");
+        k3po.finish();
+    }
+
 }
