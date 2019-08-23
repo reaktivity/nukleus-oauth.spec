@@ -42,6 +42,30 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
+        "${streams}/default.cors.preflight/accept/client",
+        "${streams}/default.cors.preflight/accept/server"
+        })
+    public void shouldDefaultCorsPreflight() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/proxy.cors.preflight/accept/client",
+        "${streams}/proxy.cors.preflight/accept/server"
+        })
+    public void shouldProxyCorsPreflight() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/authorize.query.with.signed.jwt.es256/accept/client",
         "${streams}/authorize.query.with.signed.jwt.es256/accept/server"
         })
