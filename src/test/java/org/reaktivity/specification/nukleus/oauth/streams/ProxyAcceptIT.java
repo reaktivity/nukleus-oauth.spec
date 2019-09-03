@@ -66,6 +66,18 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
+        "${streams}/authorize.challenge.response/accept/client",
+        "${streams}/authorize.challenge.response/accept/server"
+        })
+    public void shouldAuthorizeChallengeResponse() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/authorize.query.with.signed.jwt.es256/accept/client",
         "${streams}/authorize.query.with.signed.jwt.es256/accept/server"
         })

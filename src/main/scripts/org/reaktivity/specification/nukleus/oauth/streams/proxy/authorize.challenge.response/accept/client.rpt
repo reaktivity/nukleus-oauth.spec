@@ -14,18 +14,30 @@
 # under the License.
 #
 
-accept await ROUTED_PROXY
+property oauthToken ${oauth:jwt("ES256")
+                           .sign()}
+
+connect await ROUTED_PROXY
         "nukleus://streams/oauth#0"
         option nukleus:window 8192
-        option nukleus:transmission "simplex"
+        option nukleus:transmission "half-duplex"
 
-rejected
+write nukleus:begin.ext ${http:beginEx()
+                              .typeId(nukleus:id("http"))
+                              .header(":scheme", "http")
+                              .header(":method", "POST")
+                              .header(":path", "/path")
+                              .header(":authority", "localhost:8080")
+                              .header("authorization", "Bearer ".concat(oauthToken))
+                              .header("content-type", "application/x-challenge-response")
+                              .build()}
+connected
+
+write close
 
 read nukleus:begin.ext ${http:beginEx()
                              .typeId(nukleus:id("http"))
-                             .header(":scheme", "http")
-                             .header(":method", "GET")
-                             .header(":path", "/path")
-                             .header(":authority", "localhost:8080")
-                             .header("authorization", "Bearer ".concat(oauthToken))
+                             .header(":status", "204")
                              .build()}
+
+read closed
