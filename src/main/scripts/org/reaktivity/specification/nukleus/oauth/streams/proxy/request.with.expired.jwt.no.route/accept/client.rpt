@@ -32,6 +32,4 @@ write nukleus:begin.ext ${http:beginEx()
                               .header(":authority", "localhost:8080")
                               .header("authorization", "Bearer ".concat(oauthToken))
                               .build()}
-connected
-
-write aborted
+connect aborted

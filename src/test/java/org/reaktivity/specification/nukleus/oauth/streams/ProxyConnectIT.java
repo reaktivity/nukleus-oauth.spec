@@ -42,6 +42,18 @@ public class ProxyConnectIT
 
     @Test
     @Specification({
+        "${streams}/proxy.cors.preflight/connect/client",
+        "${streams}/proxy.cors.preflight/connect/server"
+        })
+    public void shouldProxyCorsPreflight() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/authorize.query.with.signed.jwt.es256/connect/client",
         "${streams}/authorize.query.with.signed.jwt.es256/connect/server"
         })

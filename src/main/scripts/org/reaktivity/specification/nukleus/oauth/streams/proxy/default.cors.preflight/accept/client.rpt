@@ -14,20 +14,29 @@
 # under the License.
 #
 
-# From https://tools.ietf.org/html/rfc7519#section-6.1 (alg=none):
-property oauthToken "eyJhbGciOiJub25lIn0.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ." 
-
 connect await ROUTED_PROXY
         "nukleus://streams/oauth#0"
-        option nukleus:window 8192
-        option nukleus:transmission "simplex"
+  option nukleus:window 8192
+  option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:beginEx()
                               .typeId(nukleus:id("http"))
                               .header(":scheme", "http")
-                              .header(":method", "GET")
+                              .header(":method", "OPTIONS")
                               .header(":path", "/path")
                               .header(":authority", "localhost:8080")
-                              .header("authorization", "Bearer ".concat(oauthToken))
+                              .header("origin", "localhost:8181")
+                              .header("access-control-request-method", "POST")
+                              .header("access-control-request-headers", "authorization,content-type")
                               .build()}
-connect aborted
+
+connected
+
+write flush
+
+read nukleus:begin.ext ${http:beginEx()
+                             .typeId(nukleus:id("http"))
+                             .header(":status", "204")
+                             .header("access-control-allow-methods", "POST")
+                             .header("access-control-allow-headers", "authorization,content-type")
+                             .build()}

@@ -23,4 +23,8 @@ scope oauth
             string audience;
         }
     }
+
+    scope stream
+    {
+    }
 }
