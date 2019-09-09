@@ -20,6 +20,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.kaazing.k3po.lang.internal.el.ExpressionFactoryUtils.newExpressionFactory;
 import static org.reaktivity.specification.nukleus.oauth.internal.OAuthJwtKeys.RFC7515_RS256;
 
+import java.security.GeneralSecurityException;
+
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
@@ -30,8 +32,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.kaazing.k3po.lang.internal.el.ExpressionContext;
 import org.reaktivity.specification.oauth.internal.types.control.OAuthResolveExFW;
-
-import java.security.GeneralSecurityException;
 
 public final class OAuthFunctionsTest
 {
