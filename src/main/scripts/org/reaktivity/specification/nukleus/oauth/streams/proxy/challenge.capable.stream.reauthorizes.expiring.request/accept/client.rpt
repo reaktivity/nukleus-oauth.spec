@@ -47,15 +47,13 @@ write nukleus:begin.ext ${http:beginEx()
                               .build()}
 connected
 
-connect option nukleus:capabilities ${core:capabilities("CHALLENGE")}
-connected
+write nukleus:challenge
 
 write close
-
-read nukleus:challenge ${http:challengeEx()
+read nukleus:begin.ext ${http:beginEx()
                              .typeId(nukleus:id("http"))
-                             .header(":method", "POST")
-                             .header("content-type", "application/x-challenge-response")
+                             .header(":status", "200")
+                             .header("content-length", "11")
                              .build()}
 
 read "hello world"

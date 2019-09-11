@@ -17,11 +17,9 @@
 accept await ROUTED_PROXY
         "nukleus://streams/target#0"
         option nukleus:authorization 0x0001000000000007L
+        option nukleus:capabilities ${core:capabilities("CHALLENGE")}
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
-accepted
-
-accept option nukleus:capabilities ${core:capabilities("CHALLENGE")}
 accepted
 
 read nukleus:begin.ext ${http:beginEx()
@@ -34,6 +32,7 @@ read nukleus:begin.ext ${http:beginEx()
                              .build()}
 connected
 
+read nukleus:challenge
 read closed
 
 write nukleus:begin.ext ${http:beginEx()
