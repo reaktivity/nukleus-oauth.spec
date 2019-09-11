@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.reaktivity</groupId>
   <artifactId>nukleus-oauth.spec</artifactId>
-  <version>0.32</version>
+  <version>0.33</version>
   <name>OAuth Nukleus Specification</name>
   <description>OAuth Nukleus Specification</description>
   <url>https://github.com/reaktivity/nukleus-oauth.spec</url>
@@ -47,10 +47,10 @@
 
     <junit.version>4.12</junit.version>
     <k3po.version>3.0.0-alpha-102</k3po.version>
-    <k3po.nukleus.ext.version>0.47</k3po.nukleus.ext.version>
+    <k3po.nukleus.ext.version>0.48</k3po.nukleus.ext.version>
 
-    <nukleus.plugin.version>0.33</nukleus.plugin.version>
-    <nukleus.http.spec.version>0.75</nukleus.http.spec.version>
+    <nukleus.plugin.version>0.40</nukleus.plugin.version>
+    <nukleus.http.spec.version>0.76</nukleus.http.spec.version>
   </properties>
 
   <dependencies>
@@ -144,7 +144,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.1.0</version>
         <configuration>
           <sourceDirectories>
             <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
@@ -163,7 +163,7 @@
           <dependency>
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
-            <version>8.18</version>
+            <version>8.23</version>
           </dependency>
         </dependencies>
       </plugin>
