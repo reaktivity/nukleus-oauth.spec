@@ -19,7 +19,8 @@ property oauthTokenExpiringSoon ${oauth:jwt("RS256")
                                        .claim("aud", "testAudience")
                                        .claim("scope", "scope1 scope2 scope3")
                                        .claim("sub", "test subject")
-                                       .expiresInSeconds(5)
+                                       .claim("https://reaktivity.org/challenge_timeout", 5)
+                                       .expiresInSeconds(10)
                                        .sign()}
 
 property oauthTokenExpiringLater ${oauth:jwt("RS256")
@@ -52,12 +53,8 @@ write close
 
 read nukleus:begin.ext ${http:beginEx()
                              .typeId(nukleus:id("http"))
-                             .header(":status", "200")
-                             .header("content-length", "11")
+                             .header(":status", "204")
                              .build()}
-
-read "hello world"
-
 read closed
 
 connect await ROUTED_PROXY
@@ -82,7 +79,8 @@ write close
 
 read nukleus:begin.ext ${http:beginEx()
                              .typeId(nukleus:id("http"))
-                             .header(":status", "204")
+                             .header(":status", "200")
+                             .header("content-length", "11")
                              .build()}
 read "hello world"
 
