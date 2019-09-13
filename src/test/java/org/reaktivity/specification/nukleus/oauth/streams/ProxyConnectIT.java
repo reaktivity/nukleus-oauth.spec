@@ -283,14 +283,13 @@ public class ProxyConnectIT
 
     @Test
     @Specification({
-        "${streams}/challenge.capable.stream.reauthorizes.expiring.request/connect/client",
-        "${streams}/challenge.capable.stream.reauthorizes.expiring.request/connect/server"
+        "${streams}/challenge.before.expiration/connect/client",
+        "${streams}/challenge.before.expiration/connect/server"
         })
     public void shouldReauthorizeWithChallenge() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
-        k3po.notifyBarrier("CHALLENGE_TIMEOUT");
         k3po.finish();
     }
 }

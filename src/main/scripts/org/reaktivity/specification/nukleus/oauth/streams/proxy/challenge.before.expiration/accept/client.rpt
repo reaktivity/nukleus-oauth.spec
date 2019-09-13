@@ -14,22 +14,14 @@
 # under the License.
 #
 
-property oauthTokenExpiringSoon ${oauth:jwt("RS256")
-                                       .claim("iss", "test issuer")
-                                       .claim("aud", "testAudience")
-                                       .claim("scope", "scope1 scope2 scope3")
-                                       .claim("sub", "test subject")
-                                       .claim("https://reaktivity.org/challenge_timeout", 5)
-                                       .expiresInSeconds(10)
-                                       .sign()}
-
-property oauthTokenExpiringLater ${oauth:jwt("RS256")
-                                        .claim("iss", "test issuer")
-                                        .claim("aud", "testAudience")
-                                        .claim("scope", "scope1 scope2 scope3")
-                                        .claim("sub", "test subject")
-                                        .expiresInSeconds(10)
-                                        .sign()}
+property oauthToken ${oauth:jwt("RS256")
+                           .claim("iss", "test issuer")
+                           .claim("aud", "testAudience")
+                           .claim("scope", "scope1 scope2 scope3")
+                           .claim("sub", "test subject")
+                           .claim("https://reaktivity.org/challenge_timeout", 5)
+                           .expiresInSeconds(10)
+                           .sign()}
 
 connect await ROUTED_PROXY
         "nukleus://streams/oauth#0"
@@ -43,39 +35,25 @@ write nukleus:begin.ext ${http:beginEx()
                               .header(":method", "GET")
                               .header(":path", "/path")
                               .header(":authority", "localhost:8080")
-                              .header("authorization", "Bearer ".concat(oauthTokenExpiringSoon))
+                              .header("authorization", "Bearer ".concat(oauthToken))
                               .build()}
 connected
 
 read nukleus:begin.ext ${http:beginEx()
                              .typeId(nukleus:id("http"))
                              .header(":status", "200")
-                             .header("content-length", "11")
+                             .header("content-type", "text/event-stream")
                              .build()}
-
-write await CHALLENGE_TIMEOUT
-write nukleus:challenge
-write close
-read "type:challenge blah blah\n\n"
-
-read closed
-
-connect await ROUTED_PROXY
-        "nukleus://streams/oauth#0"
-        option nukleus:window 8192
-        option nukleus:transmission "half-duplex"
-        option nukleus:affinity 1
+read "type:challenge\n\n"
 
 write nukleus:begin.ext ${http:beginEx()
                               .typeId(nukleus:id("http"))
                               .header(":scheme", "http")
-                              .header(":method", "POST")
+                              .header(":method", "GET")
                               .header(":path", "/path")
                               .header(":authority", "localhost:8080")
-                              .header("authorization", "Bearer ".concat(oauthTokenExpiringLater))
+                              .header("authorization", "Bearer ".concat(oauthToken))
                               .build()}
-connected
-
 write close
 
 read nukleus:begin.ext ${http:beginEx()
