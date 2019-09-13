@@ -31,6 +31,7 @@ read nukleus:begin.ext ${http:beginEx()
                              .header("authorization", "Bearer ".concat(oauthToken))
                              .build()}
 connected
+read closed
 
 write nukleus:begin.ext ${http:beginEx()
                               .typeId(nukleus:id("http"))
@@ -41,22 +42,3 @@ write flush
 
 read nukleus:challenge
 write "type:challenge\n\n"
-
-read nukleus:begin.ext ${http:beginEx()
-                             .typeId(nukleus:id("http"))
-                             .header(":scheme", "http")
-                             .header(":method", "GET")
-                             .header(":path", "/path")
-                             .header(":authority", "localhost:8080")
-                             .header("authorization", "Bearer ".concat(oauthToken))
-                             .build()}
-read closed
-
-write nukleus:begin.ext ${http:beginEx()
-                              .typeId(nukleus:id("http"))
-                              .header(":status", "200")
-                              .header("content-length", "11")
-                              .build()}
-write "hello world"
-
-write close
