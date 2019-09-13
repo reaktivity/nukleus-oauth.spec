@@ -54,7 +54,6 @@ read nukleus:begin.ext ${http:beginEx()
                              .header(":path", "/path")
                              .header(":authority", "localhost:8080")
                              .header("authorization", "Bearer ".concat(oauthTokenExpiringLater))
-                             .header("content-type", "application/x-challenge-response")
                              .build()}
 connected
 
@@ -62,7 +61,8 @@ read closed
 
 write nukleus:begin.ext ${http:beginEx()
                               .typeId(nukleus:id("http"))
-                              .header(":status", "204")
+                              .header(":status", "200")
+                              .header("content-length", "11")
                               .build()}
 write "hello world"
 

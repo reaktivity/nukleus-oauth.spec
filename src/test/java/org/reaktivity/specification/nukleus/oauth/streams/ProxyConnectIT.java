@@ -290,6 +290,7 @@ public class ProxyConnectIT
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.notifyBarrier("CHALLENGE_TIMEOUT");
         k3po.finish();
     }
 }
