@@ -286,7 +286,7 @@ public class ProxyConnectIT
         "${streams}/challenge.before.expiration/connect/client",
         "${streams}/challenge.before.expiration/connect/server"
         })
-    public void shouldReauthorizeWithChallenge() throws Exception
+    public void shouldChallengeBeforeExpiration() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
