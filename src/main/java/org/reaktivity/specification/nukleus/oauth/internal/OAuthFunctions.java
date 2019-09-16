@@ -133,7 +133,7 @@ public final class OAuthFunctions
                 {
                     StringBuilder claim = new StringBuilder();
                     claim.append(String.format("\"%s\":[", name));
-                    for (int i=0; i < values.length; i++)
+                    for (int i = 0; i < values.length; i++)
                     {
                         if (i > 0)
                         {
