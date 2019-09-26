@@ -86,7 +86,7 @@ public final class OAuthJwtKeys
             RFC7515_RS256 = initRSAKeyPair(rsa256);
             RFC7515_ES256 = initECKeyPair(es256);
         }
-        catch(GeneralSecurityException ex)
+        catch (GeneralSecurityException ex)
         {
             throw new IllegalStateException(ex);
         }
