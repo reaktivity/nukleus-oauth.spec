@@ -28,7 +28,7 @@ write 0x00000011
 write ${controlV05C.nextCorrelationId()}
 write ${core:string("oauth")}
 write [0x05] "RS256"
-write 341
+write 345 49
 write [0x05] "role1"
 write [0x05] "role2"
 write [0x05] "role3"
