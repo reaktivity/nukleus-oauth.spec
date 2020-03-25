@@ -19,8 +19,8 @@ scope oauth
     {
         struct OAuthResolveEx
         {
-            string issuer;
-            string audience;
+            string8 issuer;
+            string8 audience;
         }
     }
 

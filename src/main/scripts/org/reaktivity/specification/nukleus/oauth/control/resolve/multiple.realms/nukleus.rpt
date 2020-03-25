@@ -31,7 +31,7 @@ read 0x00000011
 read (long:correlationIdR051N)
 read ${core:string("oauth")}
 read [0x05] "RS256"
-read 0
+read 4 0
 
 write 0x40000011
 write ${correlationIdR051N}
@@ -42,7 +42,7 @@ read 0x00000011
 read (long:correlationIdR052N)
 read ${core:string("oauth")}
 read [0x05] "ES256"
-read 0
+read 4 0
 
 write 0x40000011
 write ${correlationIdR052N}

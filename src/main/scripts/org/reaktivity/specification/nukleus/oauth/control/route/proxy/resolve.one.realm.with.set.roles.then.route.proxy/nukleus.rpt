@@ -32,7 +32,7 @@ read 0x00000011
 read (long:correlationIdR051N)
 read ${core:string("oauth")}
 read [0x05] "RS256"
-read 21
+read 25 3
 read [0x06] "scope1"
 read [0x06] "scope2"
 read [0x06] "scope3"

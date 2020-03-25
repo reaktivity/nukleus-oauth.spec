@@ -28,7 +28,7 @@ read 0x00000011
 read (long:correlationIdV05N)
 read ${core:string("oauth")}
 read [0x05] "RS256"
-read 341
+read 345 49
 read [0x05] "role1"
 read [0x05] "role2"
 read [0x05] "role3"
