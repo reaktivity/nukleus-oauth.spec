@@ -46,5 +46,5 @@ read nukleus:begin.ext ${http:beginEx()
                              .header("content-type", "text/event-stream")
                              .build()}
 
-write nukleus:challenge
+read advise nukleus:challenge
 read "type:challenge\n\n"
