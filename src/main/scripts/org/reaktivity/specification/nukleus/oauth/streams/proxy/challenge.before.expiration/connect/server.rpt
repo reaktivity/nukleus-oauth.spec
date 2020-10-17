@@ -40,5 +40,5 @@ write nukleus:begin.ext ${http:beginEx()
                               .build()}
 write flush
 
-read nukleus:challenge
+write advised nukleus:challenge
 write "type:challenge\n\n"
