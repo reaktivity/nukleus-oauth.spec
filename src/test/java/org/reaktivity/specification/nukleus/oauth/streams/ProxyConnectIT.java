@@ -162,6 +162,18 @@ public class ProxyConnectIT
 
     @Test
     @Specification({
+        "${streams}/proxy.connect.reply.flush/connect/client",
+        "${streams}/proxy.connect.reply.flush/connect/server"
+        })
+    public void shouldFlushAcceptReplyWhenConnectReplyFlushes() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/request.and.response.with.fragmented.data/connect/client",
         "${streams}/request.and.response.with.fragmented.data/connect/server"
         })
