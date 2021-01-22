@@ -138,6 +138,18 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
+        "${streams}/proxy.accept.flush/accept/client",
+        "${streams}/proxy.accept.flush/accept/server"
+        })
+    public void shouldFlushClientConnectWhenAcceptFlushes() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/proxy.accept.reply.is.reset/accept/client",
         "${streams}/proxy.accept.reply.is.reset/accept/server"
         })
